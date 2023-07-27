@@ -1,7 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect} from 'react';
+
 
 function App() {
+
+  const [apiResponse, setApiResponse] = useState("");
+
+  const callAPI = () =>{
+    fetch("http://localhost:9000/testAPI")
+      .then(res => res.text())
+      .then(res => setApiResponse( res ));
+  }
+
+  useEffect(()=>{
+    callAPI()
+  },[])
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +33,7 @@ function App() {
         >
          Paws Perfect
         </a>
+        <p>{apiResponse}</p>
       </header>
     </div>
   );
