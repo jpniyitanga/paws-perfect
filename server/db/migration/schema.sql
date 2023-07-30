@@ -1,8 +1,9 @@
--- Drop and recreate Users table (Example)
+-- Drop and recreate Users table
 DROP TABLE IF EXISTS owners CASCADE;
-DROP TABLE IF EXISTS pets CASCADE;
 DROP TABLE IF EXISTS sitters CASCADE;
+DROP TABLE IF EXISTS pets CASCADE;
 DROP TABLE IF EXISTS bookings CASCADE;
+DROP TABLE IF EXISTS messages_room CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
 
 
@@ -10,7 +11,20 @@ CREATE TABLE owners (
 	id SERIAL PRIMARY KEY NOT NULL, 
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL,
+  sub_id VARCHAR(250) NOT NULL,
+  photo_url VARCHAR(250)
+);
+
+CREATE TABLE sitters (
+	id SERIAL PRIMARY KEY NOT NULL,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+  photo_url VARCHAR(250),
+	email VARCHAR(50) NOT NULL,
+  sub_id VARCHAR(250) NOT NULL,
+  accepted_pet_type TEXT[] CHECK('cat' = ANY (accepted_pet_type) OR 'dog' = ANY (accepted_pet_type)),
+  availability_dates DATE[]
 );
 
 CREATE TABLE pets (
@@ -22,15 +36,6 @@ CREATE TABLE pets (
 	owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
 );
 
-CREATE TABLE sitters (
-	id SERIAL PRIMARY KEY NOT NULL,
-	first_name VARCHAR(50),
-	last_name VARCHAR(50),
-	email VARCHAR(50) NOT NULL,
-  accepted_pet_type TEXT[] CHECK ('cat' = ANY (accepted_pet_type) OR 'dog' = ANY (accepted_pet_type)),
-  availability_dates DATE[]
-);
-
 
 CREATE TABLE bookings (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -38,17 +43,21 @@ CREATE TABLE bookings (
   end_date DATE CHECK (end_date > start_date) NOT NULL,
   status VARCHAR(50) CHECK(status IN ('pending', 'accepted', 'completed')) DEFAULT 'pending',
   sitter_review TEXT DEFAULT NULL,
-  sitter_rating INTEGER DEFAULT NULL,
+  sitter_rating INTEGER CHECK(sitter_rating >=1 AND sitter_rating <=5) DEFAULT NULL,
   pet_id INTEGER REFERENCES pets(id) ON DELETE CASCADE,
   owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE,
   sitter_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE
 );
 
+CREATE TABLE messages_room (
+  id SERIAL PRIMARY KEY NOT NULL,  
+  booking_id INTEGER REFERENCES bookings(id) ON DELETE CASCADE
+);
+
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  sender_id INTEGER REFERENCES owners(id) ON DELETE CASCADE,
-  receiver_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE,
-  booking_id INTEGER REFERENCES bookings(id) ON DELETE CASCADE,
+  sender_id INTEGER REFERENCES owners(id) REFERENCES sitters(id) ON DELETE CASCADE,
+  room_id INTEGER REFERENCES messages_room(id) ON DELETE CASCADE,
   message_content TEXT NOT NULL
 );
 
