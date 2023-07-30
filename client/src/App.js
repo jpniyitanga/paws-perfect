@@ -1,42 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect} from 'react';
-
+import React, { useEffect, useState } from "react";
+// import Axios from 'axios';
 
 function App() {
+  const [backendData, setBackendData] = useState([{}]);
 
-  const [apiResponse, setApiResponse] = useState("");
-
-  const callAPI = () =>{
-    fetch("http://localhost:9000/testAPI")
-      .then(res => res.text())
-      .then(res => setApiResponse( res ));
-  }
-
-  useEffect(()=>{
-    callAPI()
-  },[])
-
+  useEffect(() => {
+    fetch("/api")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         Paws Perfect
-        </a>
-        <p>{apiResponse}</p>
-      </header>
-    </div>
+    <>
+      <h1>WELCOME TO PAWS PERFECT</h1>
+
+      {typeof backendData.users === "undefined" ? (
+        <p>Loading...</p>
+      ) : (
+        backendData.users.map((user, i) => <p key={i}> {user} </p>)
+      )}
+    </>
   );
 }
-
 export default App;
