@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
+import Button from "react-bootstrap/Button";
+import Owners from "./components/Owners";
+import Sitters from "./components/Sitters";
 
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
-
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+ 
 
 
   return (
-    <>
+    <Fragment>
       <h1>WELCOME TO PAWS PERFECT</h1>
-      <div>
-        {typeof backendData.users === "undefined" ? (
-          <p>Loading...</p>
-        ) : (
-          backendData.users.map((owner, i) => <p key={i}> {owner} </p>)
-        )}
-      </div>
-    </>
+      <main>
+        <h2>Owners</h2>
+        <Owners />
+
+        <h2>Sitters</h2>
+        <Sitters/>
+      </main>
+    </Fragment>
   );
 }
 export default App;
