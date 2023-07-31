@@ -1,41 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect} from 'react';
+
+import React, { useState, useEffect } from 'react';
+import PetSitterCalendar from './components/PetSitterCalendar';
 
 
 function App() {
 
   const [apiResponse, setApiResponse] = useState("");
 
-  const callAPI = () =>{
+  const callAPI = () => {
     fetch("http://localhost:9000/testAPI")
       .then(res => res.text())
-      .then(res => setApiResponse( res ));
+      .then(res => setApiResponse(res));
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     callAPI()
-  },[])
-
+  }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         Paws Perfect
-        </a>
-        <p>{apiResponse}</p>
-      </header>
+    <div className="App" style={{ height: '500px' }}>
+      {/* <p>Paws Perfect</p> */}
+     <PetSitterCalendar />
+      {/* <p>{apiResponse}</p> */}
     </div>
+
+
   );
 }
 
