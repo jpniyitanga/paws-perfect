@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   return (
-    <div className="App" style={{ height: '500px' }}>
+    <div className="App">
       {/* <p>Paws Perfect</p> */}
      <PetSitterCalendar />
       {/* <p>{apiResponse}</p> */}
