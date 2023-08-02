@@ -13,6 +13,13 @@ let app = express();
 
 
 
+const {
+  getOwners,
+  getOwnersByEmail,
+  getSitters,
+  getSittersByEmail,
+} = require("./helpers");
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -47,10 +54,18 @@ app.get("/owners", async (req, res) => {
     const owners = await database.query("SELECT * FROM owners");
     res.json(owners.rows);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 });
 
+app.get("/sitters", async (req, res) => {
+  try {
+    const owners = await database.query("SELECT * FROM sitters");
+    res.json(owners.rows);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 
 
