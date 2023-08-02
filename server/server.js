@@ -1,20 +1,32 @@
 const express = require("express");
-const morgan = require("morgan");
 const axios = require("axios");
+const morgan = require("morgan");
 const cors = require("cors");
 const { database } = require("./db/connection");
 const app = express();
 app.use(cors());
 
-const {getOwners, getOwnersByEmail, getSitters, getSittersByEmail} = require('./helpers')
+const { getOwners, getOwnersByEmail, getSitters, getSittersByEmail } = require('./helpers');
 
 
+// Import Router module
+const usersRoutes = require('./routes/users');
+const bookingsRoutes = require('./routes/bookings');
 
-app.get("/api", async (req, res) => {
-  console.log("Request");
-  res.json({ "users": ["user1", "user2", "user3", "user4"] });
-});
 
+//Use Routers
+app.use('/', usersRoutes);
+app.use('/bookings', bookingsRoutes);
+
+
+// app.get("/bookings", async (req, res) => {
+//   try {
+//     const bookings = await database.query("SELECT * FROM bookings");
+//     res.json(bookings.rows);
+//   } catch (error) {
+//     console.error(error)
+//   }
+// });
 
 
 app.get("/owners", async (req, res) => {

@@ -63,8 +63,8 @@ const getAllBookings = async () => {
     .catch((err) => console.log(err.message));
 };
 
-// Get booking by sitter email
-const getBookingBySitterEmail = async (sitter_id) => {
+// Get booking by sitter id
+const getBookingBySitterId = async (sitter_id) => {
   return await database
     .query(`SELECT * FROM bookings WHERE sitter_id = $1;`, [sitter_id])
     .then((res) => {
@@ -74,11 +74,25 @@ const getBookingBySitterEmail = async (sitter_id) => {
     .catch((err) => console.log(err.message));
 };
 
+// Get pets by owner email
+const getPetByOwnerId = async (owner_id) => {
+  return await database
+    .query(`SELECT * FROM pets WHERE owner_id = $1;`, [owner_id])
+    .then((res) => {
+      console.log(res.rows);
+      return res.rows[0];
+    })
+    .catch((err) => console.log(err.message));
+};
+
+
+
 module.exports = {
   getOwners,
   getOwnersByEmail,
   getSitters,
   getSittersByEmail,
-  getBookingBySitterEmail,
+  getBookingBySitterId,
   getAllBookings,
+  getPetByOwnerId
 };

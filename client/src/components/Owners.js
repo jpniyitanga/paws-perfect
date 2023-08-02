@@ -4,8 +4,7 @@ import Button from "react-bootstrap/Button";
 function Owners() {
   const [owners, setOwners] = useState([]);
 
-  useEffect(() => {
-  
+  useEffect(() => { 
 
     fetch("/owners")
       .then((response) => response.json())
@@ -22,7 +21,7 @@ function Owners() {
         <ul>
           {owners.map((owner, key) => (
             <li key={owner.id}>
-              {owner.first_name} {owner.last_name} {owner.email}
+              {owner.first_name} {owner.last_name}{owner.email}
             </li>
           ))}
         </ul>

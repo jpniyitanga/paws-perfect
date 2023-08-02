@@ -7,8 +7,15 @@ var cors = require("cors");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/testAPI');
-
+const { database } = require("./db/connection");
 var app = express();
+
+const {
+  getOwners,
+  getOwnersByEmail,
+  getSitters,
+  getSittersByEmail,
+} = require("./helpers");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,5 +45,25 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.get("/owners", async (req, res) => {
+  try {
+    const owners = await database.query("SELECT * FROM owners");
+    res.json(owners.rows);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get("/sitters", async (req, res) => {
+  try {
+    const owners = await database.query("SELECT * FROM sitters");
+    res.json(owners.rows);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
 
 module.exports = app;

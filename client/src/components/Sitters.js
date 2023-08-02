@@ -18,7 +18,7 @@ function Sitters() {
         <ul>
           {sitters.map((sitter, key) => (
             <li key={sitter.id}>
-              {sitter.first_name} {sitter.last_name} {sitter.email}
+              {sitter.first_name} {sitter.last_name}
             </li>
           ))}
         </ul>
