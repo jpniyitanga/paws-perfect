@@ -1,14 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require('./routes/testAPI');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let cors = require("cors");
 
-var app = express();
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let testAPIRouter = require('./routes/testAPI');
+const { database } = require("./db/connection");
+let app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,5 +41,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.get("/owners", async (req, res) => {
+  try {
+    const owners = await database.query("SELECT * FROM owners");
+    res.json(owners.rows);
+  } catch (error) {
+    console.error(error)
+  }
+});
+
+
+
 
 module.exports = app;
