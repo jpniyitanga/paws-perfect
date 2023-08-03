@@ -66,7 +66,18 @@ const getAllBookings = async () => {
 // Get booking by sitter id
 const getBookingBySitterId = async (sitter_id) => {
   return await database
-    .query(`SELECT * FROM bookings WHERE sitter_id = $1;`, [sitter_id])
+    .query(`SELECT * FROM bookings WHERE id = $1;`, [sitter_id])
+    .then((res) => {
+      console.log(res.rows);
+      return res.rows[0];
+    })
+    .catch((err) => console.log(err.message));
+};
+
+// Get sitter by id
+const getSitterById = async (sitter_id) => {
+  return await database
+    .query(`SELECT * FROM sitters WHERE id = $1;`, [sitter_id])
     .then((res) => {
       console.log(res.rows);
       return res.rows[0];
@@ -94,5 +105,6 @@ module.exports = {
   getSittersByEmail,
   getBookingBySitterId,
   getAllBookings,
-  getPetByOwnerId
+  getPetByOwnerId,
+  getSitterById
 };

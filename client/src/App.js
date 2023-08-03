@@ -7,25 +7,25 @@ import Sitters from "./components/Sitters";
 
 function App() {
 
-  const [apiResponse, setApiResponse] = useState("");
+  // const [apiResponse, setApiResponse] = useState("");
 
-  const callAPI = () => {
-    fetch("http://localhost:8080/testAPI")
-      .then(res => res.text())
-      .then(res => setApiResponse(res));
-  }
+  // const callAPI = () => {
+  //   fetch("http://localhost:8080/testAPI")
+  //     .then(res => res.text())
+  //     .then(res => setApiResponse(res));
+  // }
 
-  useEffect(() => {
-    callAPI()
-  }, [])
+  // useEffect(() => {
+  //   callAPI()
+  // }, [])
 
   return (
     <div className="App">
         <h1>WELCOME TO PAWS PERFECT</h1>
-      {/* <p>Paws Perfect</p> */}
+   
      <PetSitterCalendar />
-      {/* <p>{apiResponse}</p> */}
-  
+   
+{/*   
     <Fragment>
     
       <main>
@@ -35,7 +35,7 @@ function App() {
         <h2>Sitters</h2>
         <Sitters/>
       </main>
-    </Fragment>
+    </Fragment> */}
   </div>
   )
 }

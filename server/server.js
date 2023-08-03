@@ -12,11 +12,13 @@ const { getOwners, getOwnersByEmail, getSitters, getSittersByEmail } = require('
 // Import Router module
 const usersRoutes = require('./routes/users');
 const bookingsRoutes = require('./routes/bookings');
+const sitterDetailRouter = require('./routes/sittersDetail');
 
 
 //Use Routers
 app.use('/', usersRoutes);
 app.use('/bookings', bookingsRoutes);
+app.use('/sitters', sitterDetailRouter);
 
 
 // app.get("/bookings", async (req, res) => {
@@ -66,7 +68,8 @@ axios
   });
 
 
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 
-app.listen(8080, () => {
-  console.log("Express server is running on port 8080");
 });
