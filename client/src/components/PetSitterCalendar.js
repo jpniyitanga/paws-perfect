@@ -4,23 +4,13 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../css/PetSittingCalendar.css';
 import axios from 'axios';
+import SitterDetailsForm from './SitterDetailsForm';
 
 // const dayStart = moment().set({ hour: 8, minute: 0 });
 // const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
-function EventDetails({ event }) {
-  return (
-    <div>
-      <h2>Event Details</h2>
-      <p>Title: {event.title}</p>
-      <p>Start Time: {event.start.toLocaleString()}</p>
-      <p>End Time: {event.end.toLocaleString()}</p>
-      {/* Add more details as needed */}
-    </div>
-  );
-}
 
 function PetSitterCalendar() {
 
@@ -62,26 +52,40 @@ function PetSitterCalendar() {
   });
 
   const handleEventClick = event => {
-    setSelectedEvent(event);
+
+    const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
+  //  console.log("++++++++++++++++", selectedSitter);
+    setSelectedEvent(selectedSitter);
   }
 
-  return (
-    <div>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        defaultView="month"
-        views={['week', 'month']}
-        onSelectEvent={handleEventClick}
-      // min={dayStart.toDate()}
-      // max={dayEnd.toDate()}
-      />
-      {selectedEvent && <EventDetails event={selectedEvent} />}
+  const handleCancel = () => {
+    setSelectedEvent(null); // This will reset the view
+};
 
+return (
+    <div className="calendar-container">
+        <div className={selectedEvent ? "calendar-view" : "calendar-view full-width"}>
+        <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    defaultView="month"
+                    views={['week', 'month']}
+                    onSelectEvent={handleEventClick}
+                />
+        </div>
+
+        {selectedEvent && (
+            <div className="details-view">
+                <button className="cancel-button" onClick={handleCancel}>
+                    Cancel
+                </button>
+                <SitterDetailsForm sitter={selectedEvent} />
+            </div>
+        )}
     </div>
-  );
+);
 }
 
 
