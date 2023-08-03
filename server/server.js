@@ -47,6 +47,14 @@ app.get("/sitters", async (req, res) => {
     console.error(error);
   }
 });
+// app.get("/sitterAvailability", async (req, res) => {
+//   try {
+//     const availablity = await database.query("SELECT availability_dates FROM sitters");
+//     res.json(availablity.rows);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
 axios
   .get("https://api.thecatapi.com/v1/images/0XYvRd7oD")
