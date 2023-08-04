@@ -1,7 +1,7 @@
 const { json } = require("express");
 const { database } = require("../connection");
 
-//Get all sitters
+//GET all sitters
 const getSitters = async () => {
   try {
     const sitters = await database.query("SELECT * FROM sitters");
@@ -12,7 +12,7 @@ const getSitters = async () => {
   }
 };
 
-//Get a sitter by id
+//GET a sitter by id
 const getSitterById = async (id) => {
   try {
     const selectedSitter = await database.query(
@@ -24,8 +24,28 @@ const getSitterById = async (id) => {
   }
 };
 
+//GET sitters accepting cats only
+const catSitters = async () => {
+  try {
+    const sitters = await database.query("SELECT * FROM sitters WHERE accepted_pet_type IN('cat')");
+    return sitters.rows;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// Update existing sitter
+//GET sitters accepting dogs only
+const dogSitters = async () => {
+  try {
+    const sitters = await database.query("SELECT * FROM sitters WHERE accepted_pet_type IN('dog')");
+    return sitters.rows;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+// UPDATE existing sitter
 const updateSitterById = async (userId) => {
   try {
     const sitter = await database.getSitterById(userId);
@@ -48,7 +68,7 @@ const updateSitterById = async (userId) => {
 };
 
 //Need to confirm how to get input from user/form
-// Register a new sitter
+// CREATE a new sitter
 const addSitter = async ({
   first_name,
   last_name,

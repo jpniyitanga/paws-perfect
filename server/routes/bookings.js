@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { database } = require("../db/connection");
-const { getBookings, updateBookingById, getBookingById } = require('../db/queries/bookings');
+const { getBookings, updateBookingById, getBookingById, addBooking } = require('../db/queries/bookings');
 
 
 /* GET bookings listing. */
@@ -31,6 +31,16 @@ router.put('/bookings/:id', async (req, res) => {
     res.json(updatedBooking);
   } catch (error) {
     
+  }
+});
+
+/* POST a booking */
+router.post('/bookings', async (req, res) => {
+  try {
+    const newBooking = await addBooking();
+    res.json(newBooking);
+  } catch (error) {
+    console.error(error);
   }
 });
 
