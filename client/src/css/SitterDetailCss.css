@@ -3,3 +3,23 @@
   flex-direction: column;
   gap: 5px; /* Add a space between items */
 }
+
+
+
+.circular-image {
+  width: 150px; /* Adjust the width and height as needed */
+  height: 150px;
+  border-radius: 50%; /* Creates a circular shape */
+  overflow: hidden; /* Hides any content that goes beyond the circular shape */
+  margin: 0 auto; /* Center the circle horizontally */
+}
+
+.circular-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintains aspect ratio and covers the circular area */
+}
+.sitter-name {
+  text-align: center; /* Center the name below the circular image */
+  margin-top: 10px; /* Add some spacing between the image and the name */
+}

@@ -1,7 +1,7 @@
-// routes/sittersDetail.js
+
 const express = require('express');
 const router = express.Router();
-const { getSitterById } = require('../helpers'); // Update with the correct path
+// const { getSitterById } = require('../helpers'); // Update with the correct path
 
 router.get('/:id', async (req, res) => {
   const sitterId = req.params.id;
