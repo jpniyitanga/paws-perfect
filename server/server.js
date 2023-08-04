@@ -13,12 +13,17 @@ const { getOwners, getOwnersByEmail, getSitters, getSittersByEmail } = require('
 const usersRoutes = require('./routes/users');
 const bookingsRoutes = require('./routes/bookings');
 const sitterDetailRouter = require('./routes/sittersDetail');
+const sitterReviewRouter = require('./routes/sittersReviewListing');
+
+
 
 
 //Use Routers
 app.use('/', usersRoutes);
 app.use('/bookings', bookingsRoutes);
 app.use('/sitters', sitterDetailRouter);
+app.use('/sitterreview',sitterReviewRouter);
+
 
 
 // app.get("/bookings", async (req, res) => {
@@ -49,14 +54,29 @@ app.get("/sitters", async (req, res) => {
     console.error(error);
   }
 });
-// app.get("/sitterAvailability", async (req, res) => {
+
+// const getSitterById = async (sitter_id) => {
 //   try {
-//     const availablity = await database.query("SELECT availability_dates FROM sitters");
-//     res.json(availablity.rows);
-//   } catch (error) {
-//     console.error(error);
+//     // Fetch sitter data and related booking data using a JOIN query
+//     const query = `
+//       SELECT sitters.*, bookings.sitter_rating, bookings.sitter_review
+//       FROM sitters
+//       LEFT JOIN bookings ON sitters.id = bookings.sitter_id
+//       WHERE sitters.id = $1;
+//     `;
+    
+//     const response = await database.query(query, [sitter_id]);
+//     const sitterWithRatingAndReview = response.rows[0];
+
+//     return sitterWithRatingAndReview;
+//   } catch (err) {
+//     console.error('Error fetching sitter data:', err.message);
+//     return null;
 //   }
-// });
+// };
+
+
+
 
 axios
   .get("https://api.thecatapi.com/v1/images/0XYvRd7oD")

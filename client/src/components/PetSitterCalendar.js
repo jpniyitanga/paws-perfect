@@ -22,7 +22,7 @@ function PetSitterCalendar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:8080/sitters');
+        const result = await axios.get('http://localhost:8080/sitterreview');
         setSittersData(result.data);
         setLoading(false);
       } catch (error) {

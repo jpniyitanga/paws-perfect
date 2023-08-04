@@ -15,6 +15,7 @@ function SitterDetailsForm(props) {
 
         <p>Pet Types: {props.sitter.accepted_pet_type.join(' | ')}</p>
         <p>Review: {props.sitter.sitter_review}</p>
+        <p>Ratings: {props.sitter.sitter_rating}</p>
 
         <button type="submit">Book Sitting Request</button>
       </div>
