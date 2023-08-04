@@ -20,7 +20,7 @@ const sitterReviewRouter = require('./routes/sittersReviewListing');
 
 
 //Use Routers
-app.use('/', usersRoutes);
+//app.use('/', usersRoutes);
 app.use('/bookings', bookingsRoutes);
 app.use('/sitters', sitterDetailRouter);
 app.use('/sitterreview',sitterReviewRouter);

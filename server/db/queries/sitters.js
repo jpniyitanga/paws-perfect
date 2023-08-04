@@ -24,11 +24,6 @@ const getSitterById = async (id) => {
   }
 };
 
-<<<<<<< HEAD
-
-
-module.exports = { addSitter };
-=======
 //GET sitters accepting cats only
 const catSitters = async () => {
   try {
@@ -105,4 +100,3 @@ const addSitter = async ({
 
 
 module.exports = { getSitters, getSitterById, addSitter, updateSitterById };
->>>>>>> main
