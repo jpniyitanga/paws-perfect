@@ -11,7 +11,7 @@ const getOwners = async () => {
   }
 };
 
-//Get owners by id
+//Get owner by id
 const getOwnerById = async (id) => {
   try {
     const selectedOwner = await database.query(
