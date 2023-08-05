@@ -1,7 +1,7 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { Fragment } from "react";
 
-import Owners from "./components/Owners";
-import Sitters from "./components/Sitters";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 
 function App() {
@@ -11,12 +11,9 @@ function App() {
   return (
     <Fragment>
       <h1>WELCOME TO PAWS PERFECT</h1>
-      <main>
-        <h2>Owners</h2>
-        <Owners />
-
-        <h2>Sitters</h2>
-        <Sitters/>
+      <main className="column">       
+        <Login />
+        <Logout />
       </main>
     </Fragment>
   );
