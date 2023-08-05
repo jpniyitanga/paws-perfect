@@ -2,11 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
-console.log(user)
-  // create the route
-  // react calendar route and others
-  // use effect to post req to  /api/find-user
-  // to check if th ID exists
 
   return(
     isAuthenticated && (
