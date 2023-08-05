@@ -5,9 +5,9 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
-
-
-
+const bodyParser = require('body-parser');
+const bookingsRoute = require('./routes/bookings'); // Import your bookings route
+app.use(bodyParser.json());
 
 // Import Routes module
 const sittersRoutes = require('./routes/sitters');
@@ -24,6 +24,9 @@ const sitterReviewRouter = require('./routes/sittersReviewListing');
 app.use('/bookings', bookingsRoutes);
 app.use('/sitters', sitterDetailRouter);
 app.use('/sitterreview',sitterReviewRouter);
+
+app.use('/api', bookingsRoute); // Use the bookings route
+
 
 
 
