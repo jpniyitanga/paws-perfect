@@ -2,23 +2,24 @@ import React, { useEffect, useState, Fragment } from "react";
 
 import Owners from "./components/Owners";
 import Sitters from "./components/Sitters";
+import LoginButton from './components/LoginButton';
+import LogoutButton from './components/LogoutButton';
+import Profile from './components/Profile';
+import Home from './components/Home';
 
+import { BrowserRouter as Router, Routes, Route, link} from 'react-router-dom';
 
 function App() {
- 
-
-
   return (
-    <Fragment>
-      <h1>WELCOME TO PAWS PERFECT</h1>
-      <main>
-        <h2>Owners</h2>
-        <Owners />
+    <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />}/>
+          <Route path="/Profile" element={<Profile />}/>
+          <Route path="/Owners" element={<Owners />}/>
+          <Route path="/Sitters" element={<Sitters/>}/>
+        </Routes>
+    </Router>
 
-        <h2>Sitters</h2>
-        <Sitters/>
-      </main>
-    </Fragment>
   );
 }
 export default App;
