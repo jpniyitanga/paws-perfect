@@ -98,7 +98,6 @@ const getPetByOwnerId = async (owner_id) => {
 
 //create booking
 
-
 const createBooking = async (booking) => {
   console.log('@ helper', booking);
 
