@@ -8,43 +8,25 @@ const { database } = require("../db/connection");
 const { getOwnerByEmail } = require("../db/queries/owners");
 const {findUser} = require("../db/queries/users");
 
-// app.use(bodyParser.json());
-// app.use(
-//   session({    
-//     secret: "your_session_secret",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-//       httpOnly: true,
-//     },
-//   })
-// );
+
 
 // Login route
-router.post('/', async (req, res) => {
-  const { email, password } = req.body;
-
+router.post('/login', async (req, res) => {
+  const {userId} = req.body;
   try {
-    // const result = await database.query('SELECT * FROM owners WHERE email = $1', [email]);
-    // console.log(result.rows)
+    const result = await findUser(sub_id);
     
-    // if (result.rows.length === 0) {
-    //   return res.status(401).json({ message: 'Invalid email or password' });
-    // }
-console.log(email)
-    const result = await findUser(email);
-    
-
-    const isPasswordMatch = await bcrypt.compare(password, result.password);
-    console.log(isPasswordMatch)
-    
-    if (!isPasswordMatch) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+    // If user does not exist, redirect to register form
+    if (result.sub_id !== userId) { 
+      return res.status(401).json({ message: "Invalid user, please register" });
+      res.redirect("/register");
     }
+    const existingUser = result.rowCount > 0;
+    res.json({ exists: existingUser }); 
+    
     
     // Save user's email in session
-    req.session.email = email;
+    req.session.email = existingUser.email;
     console.log(req.session);
     res.json({' message': 'Logged in successfully' });
   } catch (err) {
