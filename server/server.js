@@ -34,9 +34,9 @@ const registerRoute = require('./routes/register');
 app.use("/", sittersRoutes);
 app.use("/", ownersRoutes);
 app.use("/", bookingsRoutes);
-app.use("/login", loginRoute);
-app.use("/", logoutRoutes);
-app.use('/', registerRoute);
+app.use("/", loginRoute);
+app.use("/logout", logoutRoutes);
+app.use('/register', registerRoute);
 
 app.listen(8080, () => {
   console.log("Express server is running on port 8080");

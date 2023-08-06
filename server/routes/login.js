@@ -11,24 +11,26 @@ const {findUser} = require("../db/queries/users");
 
 
 // Login route
-router.post('/login', async (req, res) => {
-  const {userId} = req.body;
+router.post('/api/login', async (req, res) => {
+  console.log(req.body)
+  const {sub} = req.body
   try {
-    const result = await findUser(sub_id);
+    const result = await findUser(sub);
     
     // If user does not exist, redirect to register form
-    if (result.sub_id !== userId) { 
+    if (!result) { 
       return res.status(401).json({ message: "Invalid user, please register" });
-      res.redirect("/register");
+      // res.redirect("/register");
+    } else {
+      // should indicate user type
+      const existingUser = result.rows[0];
+      res.json(existingUser);       
+      
+      // Save user's email in session
+      req.session.email = result.email;
+      console.log(req.session);
+      res.json({' message': 'Logged in successfully' });
     }
-    const existingUser = result.rowCount > 0;
-    res.json({ exists: existingUser }); 
-    
-    
-    // Save user's email in session
-    req.session.email = existingUser.email;
-    console.log(req.session);
-    res.json({' message': 'Logged in successfully' });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
