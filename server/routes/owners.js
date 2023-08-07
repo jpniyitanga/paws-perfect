@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const { database } = require("../db/connection");
 const { getOwners, getOwnerById, updateOwnerById, addOwner } = require("../db/queries/owners");
-const sendNotification = require("../helpers");
+const { sendNewBookingNotification } = require("../helpers");
 
 
 /* GET all owners */
 router.get("/owners", async (req, res) => {
   try {
     console.log("All Owners");
-    await sendNotification();
+    await sendNewBookingNotification();
     const allOwners = await getOwners();
     res.json(allOwners);
   } catch (error) {
