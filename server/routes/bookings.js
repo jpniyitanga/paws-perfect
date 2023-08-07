@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { database } = require("../db/connection");
 const { getBookings, updateBookingById, getBookingById, addBooking } = require('../db/queries/bookings');
-
+const {createBooking} = require('../helpers')
 
 /* GET bookings listing. */
 router.get('/bookings', async (req, res) => {
@@ -34,13 +34,37 @@ router.put('/bookings/:id', async (req, res) => {
   }
 });
 
-/* POST a booking */
+// /* POST a booking */
+// router.post('/bookings', async (req, res) => {
+//   try {
+//     const newBooking = await addBooking();
+//     res.json(newBooking);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
+
+// new booking
+
 router.post('/bookings', async (req, res) => {
+  
+  //console.log("request body",req.body);
+
   try {
-    const newBooking = await addBooking();
-    res.json(newBooking);
+
+    const newBooking = req.body;
+    const booking = await createBooking(newBooking);
+
+    res.status(201).json({
+      message: 'Booking Request successfully sent',
+      booking 
+    });
+
   } catch (error) {
+
     console.error(error);
+    res.status(500).json({ message: 'Error creating booking' });
+  
   }
 });
 

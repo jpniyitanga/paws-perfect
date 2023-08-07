@@ -1,0 +1,39 @@
+
+.rbc-calendar {
+  min-height: 580px;
+}
+.rbc-header{
+  padding: 8px;
+  font-weight: bold;
+}
+.calendar-container {
+  display: flex;
+}
+
+.calendar-view {
+  flex: 3; /* Adjusted for 60% width */
+  width: 100%;
+  height: 100vh; 
+  margin-right: 20px;
+}
+
+.details-view {
+  flex: 2; /* Adjusted for 40% width */
+  position: relative; /* This will help position the cancel button absolutely within it */
+}
+
+.cancel-button {
+  position: absolute;
+  top: 10px; 
+  right: 10px;
+  background-color: #f44336; /* Red color for the button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.full-width {
+  flex: 5;
+}
+
