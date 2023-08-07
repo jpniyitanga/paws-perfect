@@ -99,20 +99,20 @@ const getPetByOwnerId = async (owner_id) => {
 //create booking
 
 const createBooking = async (booking) => {
-  console.log('@ helper', booking);
+
+  console.log('@ helper', booking.min);
+  
 
   const query = `
-    INSERT INTO bookings (start_date, end_date, status, sitter_review, sitter_rating, pet_id, owner_id, sitter_id)  
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
   `;
 
   const values = [
-    booking.sitter.start_date,
-    booking.sitter.end_date, 
+    booking.min,
+    booking.max, 
     booking.status,
-    booking.sitter_review,
-    booking.sitter_rating,
     booking.sitter.pet_id,
     booking.sitter.owner_id,
     booking.sitter.sitter_id
@@ -121,8 +121,6 @@ const createBooking = async (booking) => {
 
   return result.rows[0];
 }
-
-
 
 
 module.exports = {

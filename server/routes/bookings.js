@@ -48,7 +48,7 @@ router.put('/bookings/:id', async (req, res) => {
 
 router.post('/bookings', async (req, res) => {
   
-  console.log("request body",req.body);
+  //console.log("request body",req.body);
 
   try {
 

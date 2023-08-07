@@ -1,10 +1,12 @@
 -- Drop and recreate Users table
-DROP TABLE IF EXISTS owners CASCADE;
-DROP TABLE IF EXISTS sitters CASCADE;
-DROP TABLE IF EXISTS pets CASCADE;
-DROP TABLE IF EXISTS bookings CASCADE;
-DROP TABLE IF EXISTS messages_room CASCADE;
+
 DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS messages_room CASCADE;
+DROP TABLE IF EXISTS bookings CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS pets CASCADE;
+DROP TABLE IF EXISTS sitters CASCADE;
+DROP TABLE IF EXISTS owners CASCADE;
 
 
 CREATE TABLE owners (
@@ -36,14 +38,11 @@ CREATE TABLE pets (
 	owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE bookings (
   id SERIAL PRIMARY KEY NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE CHECK (end_date > start_date) NOT NULL,
   status VARCHAR(50) CHECK(status IN ('pending', 'accepted', 'completed')) DEFAULT 'pending',
-  sitter_review TEXT DEFAULT NULL,
-  sitter_rating INTEGER CHECK(sitter_rating >=1 AND sitter_rating <=5) DEFAULT NULL,
   pet_id INTEGER REFERENCES pets(id) ON DELETE CASCADE,
   owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE,
   sitter_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE
@@ -59,5 +58,13 @@ CREATE TABLE messages (
   sender_id INTEGER REFERENCES owners(id) REFERENCES sitters(id) ON DELETE CASCADE,
   room_id INTEGER REFERENCES messages_room(id) ON DELETE CASCADE,
   message_content TEXT NOT NULL
+);
+
+CREATE TABLE reviews(
+  id SERIAL PRIMARY KEY NOT NULL,
+  sitter_review TEXT DEFAULT NULL,
+  sitter_rating INTEGER CHECK(sitter_rating >=1 AND sitter_rating <=5) DEFAULT NULL,
+  sitter_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
 );
 

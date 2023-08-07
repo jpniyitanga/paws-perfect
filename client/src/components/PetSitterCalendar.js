@@ -6,8 +6,8 @@ import '../css/PetSittingCalendar.css';
 import axios from 'axios';
 import SitterDetailsForm from './SitterDetailsForm';
 
-// const dayStart = moment().set({ hour: 8, minute: 0 });
-// const dayEnd = moment().set({ hour: 23, minute: 0 });
+const dayStart = moment().set({ hour: 8, minute: 0 });
+const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
@@ -45,48 +45,52 @@ function PetSitterCalendar() {
 
   const events = sittersData.flatMap(sitter => {
     return sitter.availability_dates.map(date => ({
-      start: moment(date).set({ hour: 1, minute: 0 }).toDate(),
+      start: moment(date).set({ hour: 8, minute: 0 }).toDate(),
       end: moment(date).set({ hour: 23, minute: 0 }).toDate(),
       title: sitter.first_name
     }));
   });
-
+  
   const handleEventClick = event => {
 
     const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
-  //  console.log("++++++++++++++++", selectedSitter);
+    //  console.log("++++++++++++++++", selectedSitter);
     setSelectedEvent(selectedSitter);
+    
   }
 
   const handleCancel = () => {
     setSelectedEvent(null); // This will reset the view
-};
+  };
 
-return (
+  return (
     <div className="calendar-container">
-        <div className={selectedEvent ? "calendar-view" : "calendar-view full-width"}>
+      <div className={selectedEvent ? "calendar-view" : "calendar-view full-width"}>
         <Calendar
-                    localizer={localizer}
-                    events={events}
-                    startAccessor="start"
-                    endAccessor="end"
-                    defaultView="month"
-                    views={['week', 'month']}
-                    onSelectEvent={handleEventClick}
-                />
-        </div>
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          defaultView="month"
+          views={['week', 'month']}
+          onSelectEvent={handleEventClick}
+          min={dayStart}
+          max={dayEnd}
+        />
+      </div>
 
-        {selectedEvent && (
-            <div className="details-view">
-                <button className="cancel-button" onClick={handleCancel}>
-                    Cancel
-                </button>
-                <SitterDetailsForm sitter={selectedEvent} />
-            </div>
-        )}
+      {selectedEvent && (
+        <div className="details-view">
+          <button className="cancel-button" onClick={handleCancel}>
+            Cancel
+          </button>
+          <SitterDetailsForm sitter={selectedEvent} min={dayStart} max={dayEnd} />
+        </div>
+      )}
     </div>
-);
+  );
 }
 
 
 export default PetSitterCalendar;
+ //const newBooking={...props, status: "pending" }

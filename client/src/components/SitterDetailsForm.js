@@ -12,7 +12,15 @@ function SitterDetailsForm(props) {
   const handleBookRequest = async () => {
     console.log("under handleBookRequest ", props);
 
-    const newBooking={...props, status: "pending", sitter_review: "not bad", sitter_rating: null }
+   
+    const { sitter, min, max } = props;
+
+  const newBooking = {
+    sitter: sitter,
+    status: "pending",
+    min: min, 
+    max: max  
+  };
 
     // console.log("new booking", newBooking); 
 
@@ -54,6 +62,8 @@ function SitterDetailsForm(props) {
         <p>Pet Types: {props.sitter.accepted_pet_type.join(' | ')}</p>
         <p>Review: {props.sitter.sitter_review}</p>
         <p>Ratings: {props.sitter.sitter_rating}</p>
+        
+
         <button type="button" onClick={handleBookRequest}>Book Sitting Request</button>
       </div>
     </div>
