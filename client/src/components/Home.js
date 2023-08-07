@@ -10,15 +10,14 @@ const Home = () => {
   return (
     <>
       <di>
-        <Navbar/>
+        <Navbar />
       </di>
-      <h1>WELCOME TO PAWS PERFECT</h1>
+      <h1 class="text-center">WELCOME TO PAWS PERFECT</h1>
       <h2>Auth0</h2>
-      <LoginButton/>
-      <LogoutButton/>
+      <LoginButton />
+      <LogoutButton />
 
-      <Profile/>
-
+      <Profile />
     </>
   );
 }
