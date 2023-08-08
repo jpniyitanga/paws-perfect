@@ -5,7 +5,7 @@ import '../css/bookingRequestCss.css';
 import Navbar from "./Navbar";
 
 function Sitters() { // it will replaced by session information
-const sitter_id = 5; // props.sitter_id
+const sitter_id = 2; // props.sitter_id
   const [bookingRequests, setBookingRequests] = useState([]);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const sitter_id = 5; // props.sitter_id
 
     
       <Navbar />
-      <div>
+      {/* <div>
         <ul>
           {sitters.map((sitter, key) => (
             <li key={sitter.id}>
@@ -72,7 +72,7 @@ const sitter_id = 5; // props.sitter_id
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { database } = require("../db/connection");
 const { getBookings, updateBookingById, getBookingById, addBooking } = require('../db/queries/bookings');
-
+const {createBooking} =require('../helpers');
 
 /* GET bookings listing. */
 router.get("/bookings", async (req, res) => {
