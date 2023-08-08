@@ -63,13 +63,30 @@ const getAllBookings = async () => {
     .catch((err) => console.log(err.message));
 };
 
-// Get booking by sitter id
+// Get booking requests by sitter_id
 const getBookingBySitterId = async (sitter_id) => {
+  
   return await database
-    .query(`SELECT * FROM bookings WHERE id = $1;`, [sitter_id])
+    .query(`SELECT 
+    o.first_name || ' ' || o.last_name AS owner_full_name,
+    p.name AS pet_name,
+    p.description AS pet_description,
+    p.type AS pet_type,
+    b.start_date AS booking_start_date,
+    b.end_date AS booking_end_date,
+    b.status
+FROM 
+    bookings b
+JOIN 
+    pets p ON b.pet_id = p.id
+JOIN 
+    owners o ON b.owner_id = o.id
+WHERE 
+    b.sitter_id = $1 AND b.status = 'pending' ;
+`, [sitter_id])
     .then((res) => {
       console.log(res.rows);
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => console.log(err.message));
 };
@@ -108,6 +125,7 @@ const createBooking = async (booking) => {
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
   `;
+  
 
   const values = [
     booking.min,
@@ -121,6 +139,17 @@ const createBooking = async (booking) => {
 
   return result.rows[0];
 }
+
+
+// const findSitterEmail = async (sitter_id) => {
+//   return await database
+//     .query(`SELECT first_name, email FROM sitters WHERE sitter_id = $1;`, [sitter_id])
+//     .then((res) => {
+//       console.log(res.rows);
+//       return res.rows[0];
+//     })
+//     .catch((err) => console.log(err.message));
+// };
 
 
 module.exports = {

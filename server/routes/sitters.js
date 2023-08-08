@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { database } = require("../db/connection");
 const { addSitter, getSitterById, updateSitterById, getSitters } = require('../db/queries/sitters');
+const {getBookingBySitterId} = require('../helpers');
 
 
 /* GET all sitters */
@@ -41,6 +42,18 @@ router.post("/sitters/register", async (req, res) => {
   try {
     const newSitter = await addSitter(req.body);
     res.json(newSitter);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+// Sitters Booking request
+router.get("/sitterbookings/:id", async (req, res) => {
+  // console.log("sitter_id", req.params.id);
+  try {
+    const newBookingRequests = await getBookingBySitterId(req.params.id);
+    res.json(newBookingRequests);
   } catch (error) {
     console.error(error);
   }

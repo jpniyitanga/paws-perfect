@@ -1,0 +1,40 @@
+/* BookingRequestsList.css */
+
+/* Styling for the whole list */
+.pet-requests-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Styling for each list item */
+.pet-request-item {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pet-request-item h5 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.pet-request-item p {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #495057;
+}
+
+/* Styling for the action buttons */
+.action-buttons button {
+  margin-right: 10px;
+}
+
+/* Styling for the button icons */
+.action-buttons button .fa {
+  margin-right: 5px;
+}

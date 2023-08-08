@@ -54,11 +54,15 @@ router.post('/bookings', async (req, res) => {
 
     const newBooking = req.body;
     const booking = await createBooking(newBooking);
+    //console.log("", booking); it will hold the sitter id
+    //findSitterEmail(booking.sitter_id);
+    //notifySitter(arguments from findSitterEmail);
 
     res.status(201).json({
       message: 'Booking Request successfully sent',
-      booking 
+      booking
     });
+
 
   } catch (error) {
 

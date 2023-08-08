@@ -9,15 +9,21 @@ import Contact from './components/Contact';
 import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
+import PetSitterCalendar from './components/PetSitterCalendar';
 
 
 
-import { BrowserRouter as Router, Routes, Route, link} from 'react-router-dom';
+
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
+    
     <Router>
         <Routes>
+        
+        <Route path="/owners" element={<PetSitterCalendar/>}/>
+        
           <Route exact path="/" element={<Home />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/Profile" element={<Profile />}/>

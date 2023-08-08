@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/SitterDetailCss.css';
+import StarRating from '../components/StartRating';
 
 
 
@@ -60,8 +61,10 @@ function SitterDetailsForm(props) {
         <div className="circular-image"> <img src={props.sitter.photo_url} alt="Sitter" /> </div>
         <p className="sitter-name">{props.sitter.first_name} {props.sitter.last_name}</p>
         <p>Pet Types: {props.sitter.accepted_pet_type.join(' | ')}</p>
-        <p>Review: {props.sitter.sitter_review}</p>
-        <p>Ratings: {props.sitter.sitter_rating}</p>
+        <h5>Reviews</h5>
+        <p> {props.sitter.sitter_review}</p>
+        <p><StarRating rating={props.sitter.sitter_rating} /></p>
+
         
 
         <button type="button" onClick={handleBookRequest}>Book Sitting Request</button>
