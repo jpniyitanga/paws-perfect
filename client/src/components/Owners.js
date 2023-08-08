@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from "./Navbar";
 
 
 function Owners() {
@@ -15,12 +16,13 @@ function Owners() {
 
   return (
     <>
-      
+      <Navbar />
       <div>
         <ul>
           {owners.map((owner, key) => (
             <li key={owner.id}>
-              {owner.first_name} {owner.last_name}{owner.email}
+              {owner.first_name} {owner.last_name}
+              {owner.email}
             </li>
           ))}
         </ul>
