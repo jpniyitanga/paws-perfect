@@ -7,18 +7,28 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
-const findSitterEmail = async (sitter_id) => {
+const findSitterInBooking = async (sitter_id) => {
   try {
     const sitter = await database
-      .query(`SELECT first_name, email FROM sitters WHERE sitter_id = $1;`, [sitter_id])
+      .query(`SELECT first_name, email FROM sitters WHERE id = $1;`, [sitter_id])
       return res.rows[0];    
   } catch (error) {
     console.error(error)
   }
 };
 
-// when using thi function in bookings route, remember to pass the receiver object as a parameter
-const sendNewBookingNotification = async () => {
+const findOwnerInBooking = async (owner_id) => {
+  try {
+    const owner = await database.query(
+      `SELECT first_name, email FROM owners WHERE id = $1;`,[owner_id]);
+    return res.rows[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// when using this function in bookings route, remember to pass the receiver object as a parameter
+const sendNewBookingNotification = async ({receiver}) => {
   // const { email, message } = data;
   // const emailData = {
   //   from: "jpniyitanga@gmail.com", // Replace with your email address (sender)
@@ -27,10 +37,10 @@ const sendNewBookingNotification = async () => {
   //   text: "Hello there",
   // };  
   try {
-      const receiver = {
-      name: "John",
-      email: "jpniyitanga@gmail.com",
-    };
+    //   const receiver = {
+    //   name: "John",
+    //   email: "jpniyitanga@gmail.com",
+    // };
 
     await sgMail.send({
       from: "Paws perfect <jpniyitanga@gmail.com>",
@@ -55,4 +65,8 @@ const sendNewBookingNotification = async () => {
     }     
 };
 
-module.exports = { sendNewBookingNotification, findSitterEmail };
+module.exports = {
+  sendNewBookingNotification,
+  findOwnerInBooking,
+  findSitterInBooking,
+};

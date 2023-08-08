@@ -7,7 +7,7 @@ const {
   getBookingById,
   addBooking,
 } = require("../db/queries/bookings");
-const { sendNewBookingNotification, findSitterEmail } = require("../helpers");
+const { sendNewBookingNotification, findSitterInBooking, findOwnerInBooking } = require("../helpers");
 
 /* GET bookings listing. */
 router.get("/bookings", async (req, res) => {
@@ -42,8 +42,8 @@ router.post("/bookings", async (req, res) => {
   try {
     const newBooking = await addBooking();
     res.json(newBooking);
-    // const sitter = await findSitterEmail(newBooking.sitter_id);
-    // sendNewBookingNotification(sitter.email);
+    // const sitter = await findSitterInBooking(newBooking.sitter_id);
+    // sendNewBookingNotification({sitter});
   } catch (error) {
     console.error(error);
   }
