@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { database } = require("../db/connection");
 const { getOwners, getOwnerById, updateOwnerById, addOwner } = require("../db/queries/owners");
-const { sendNewBookingNotification } = require("../helpers");
+const { sendNewBookingNotification, getSitters } = require("../helpers");
 
 
 /* GET all owners */

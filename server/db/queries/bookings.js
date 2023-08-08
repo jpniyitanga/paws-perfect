@@ -12,18 +12,18 @@ const getBookings = async () => {
   }
 };
 
-// GET booking by sitter id
-const getBookingsBySitterId = async (sitter_id) => {
-  try {
-    const bookingsbySitter = await database.query(
-      `SELECT * FROM bookings WHERE sitter_id = $1;`,
-      [sitter_id]
-    );
-    return bookingsbySitter.rows[0];
-  } catch (error) {
-    console.error(error);
-  }
-};
+// // GET booking by sitter id
+// const getBookingsBySitterId = async (sitter_id) => {
+//   try {
+//     const bookingsbySitter = await database.query(
+//       `SELECT * FROM bookings WHERE sitter_id = $1;`,
+//       [sitter_id]
+//     );
+//     return bookingsbySitter.rows[0];
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 // GET booking by owner id
 const getBookingsByOwnerId = async (owner_id) => {
@@ -144,7 +144,6 @@ const addBooking = async () => {
 
 module.exports = {
   getBookings,
-  getBookingsBySitterId,
   getBookingById,
   updateBookingById,
   addBooking,

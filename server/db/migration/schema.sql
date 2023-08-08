@@ -14,7 +14,6 @@ CREATE TABLE owners (
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	email VARCHAR(50) NOT NULL,
-  password VARCHAR(250) NOT NULL,
   sub_id VARCHAR(250),
   photo_url VARCHAR(250)
 );
@@ -25,7 +24,6 @@ CREATE TABLE sitters (
 	last_name VARCHAR(50),
   photo_url VARCHAR(250),
 	email VARCHAR(50) NOT NULL,
-  password VARCHAR(250) NOT NULL,
   sub_id VARCHAR(250) NOT NULL,
   accepted_pet_type TEXT[] CHECK('cat' = ANY (accepted_pet_type) OR 'dog' = ANY (accepted_pet_type)),
   availability_dates DATE[]

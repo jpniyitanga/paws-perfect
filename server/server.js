@@ -16,45 +16,6 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
-<<<<<<< HEAD
-const bodyParser = require('body-parser');
-const bookingsRoute = require('./routes/bookings'); // Import your bookings route
-app.use(bodyParser.json());
-
-// Import Routes module
-const sittersRoutes = require('./routes/sitters');
-const ownersRoutes = require('./routes/owners');
-const bookingsRoutes = require('./routes/bookings');
-const sitterDetailRouter = require('./routes/sittersDetail');
-const sitterReviewRouter = require('./routes/sittersReviewListing');
-
-
-
-
-//Use Routers
-//app.use('/', usersRoutes);
-app.use('/bookings', bookingsRoutes);
-app.use('/sitters', sitterDetailRouter);
-app.use('/sitterreview',sitterReviewRouter);
-
-app.use('/api', bookingsRoute); // Use the bookings route
-
-
-
-=======
-app.use(bodyParser.json());
-app.use(
-  session({
-    secret: "your_session_secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-      httpOnly: true,
-    },
-  })
-);
-
 // Import Routes
 const sittersRoutes = require("./routes/sitters");
 const ownersRoutes = require("./routes/owners");
@@ -73,10 +34,46 @@ app.use('/register', registerRoute);
 
 
 
+// Import Routes module
+// const sittersRoutes = require('./routes/sitters');
+// const ownersRoutes = require('./routes/owners');
+// const bookingsRoutes = require('./routes/bookings');
+const sitterDetailRouter = require('./routes/sittersDetail');
+const sitterReviewRouter = require('./routes/sittersReviewListing');
+
+
+
+
+//Use Routers
+//app.use('/', usersRoutes);
+app.use('/bookings', bookingsRoutes);
+app.use('/sitters', sitterDetailRouter);
+app.use('/sitterreview',sitterReviewRouter);
+
+// app.use('/api', bookingsRoute); // Use the bookings route
+
+
+
+app.use(bodyParser.json());
+app.use(
+  session({
+    secret: "your_session_secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+    },
+  })
+);
+
+
+
+
+
 // Monitor database for changes and send email notifications
 // const sendNotification = async () => {
 //   // const { email, message } = data;
->>>>>>> messaging
 
 //   const emailData = {
 //     to: "jpniyitanga@gmail.com",
@@ -104,9 +101,7 @@ app.use('/register', registerRoute);
 // });
 
 
-const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

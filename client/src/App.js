@@ -11,6 +11,7 @@ import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
 import Navbar from "react-bootstrap/Navbar";
+import PetSitterCalendar from './components/PetSitterCalendar'
 
 
 
@@ -21,21 +22,20 @@ function App() {
   if (isloading) return <div>Loading...</div>
   return (
     <Router>
-        <Routes>
-          <Route exact path="/" element={<Home />}/>
-          <Route path="/login" element={<LoginForm />}/>
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/owners" element={<Owners />}/>
-          <Route path="/sitters" element={<Sitters/>}/>
-          <Route path="/services" element={<Services />}/>
-          <Route path="/contact" element={<Contact />}/>
-          <Route path="/bookings" element={<Bookings />}/>
-          <Route path="/register-owner" element={<FormOwners />}/>
-          <Route path="/register-sitter" element={<FormSitters />}/>
-
-        </Routes>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/owners" element={<Owners />} /> */}
+        <Route path="/sitters" element={<Sitters />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/register-owner" element={<FormOwners />} />
+        <Route path="/register-sitter" element={<FormSitters />} />
+        <Route path="/owners" element={<PetSitterCalendar />} />
+      </Routes>
     </Router>
-
   );
 }
 export default App;

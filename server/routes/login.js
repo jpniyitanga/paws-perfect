@@ -13,7 +13,7 @@ const {findUser} = require("../db/queries/users");
 // Login route
 router.post('/api/login', async (req, res) => {
   console.log(req.body)
-  const {sub} = req.body
+  const sub = req.body
   try {
     const result = await findUser(sub);
     
@@ -26,8 +26,8 @@ router.post('/api/login', async (req, res) => {
       const existingUser = result.rows[0];
       res.json(existingUser);       
       
-      // Save user's email in session
-      req.session.email = result.email;
+      // Save user's id in session
+      req.session.id = result.id;
       console.log(req.session);
       res.json({' message': 'Logged in successfully' });
     }
