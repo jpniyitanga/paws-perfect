@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 
 function Sitters() {
   const [sitters, setSitters] = useState([]);
@@ -14,6 +15,7 @@ function Sitters() {
 
   return (
     <>
+      <Navbar />
       <div>
         <ul>
           {sitters.map((sitter, key) => (

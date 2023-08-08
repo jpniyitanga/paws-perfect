@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const { database } = require("../db/connection");
 const { getOwners, getOwnerById, updateOwnerById, addOwner } = require("../db/queries/owners");
+const { sendNewBookingNotification } = require("../helpers");
 
 
 /* GET all owners */
 router.get("/owners", async (req, res) => {
   try {
-    console.log("All Owners");
+    // console.log("All Owners");
+    await sendNewBookingNotification();
     const allOwners = await getOwners();
     res.json(allOwners);
   } catch (error) {
@@ -19,7 +21,7 @@ router.get("/owners", async (req, res) => {
 router.get("/owners/:id", async (req, res) => {
   try {    
     const selectedOwner = await getOwnerById(req.params.id);
-    console.log(selectedOwner);
+    // console.log(selectedOwner);
     res.json(selectedOwner);
     
   } catch (error) {

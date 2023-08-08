@@ -4,17 +4,20 @@ import Sitters from "./Sitters";
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Profile from './Profile';
+import Navbar from "./Navbar";
 
 const Home = () => {
   return (
     <>
-      <h1>WELCOME TO PAWS PERFECT</h1>
-      <h2>Auth0</h2>
-      <LoginButton/>
-      <LogoutButton/>
+      <di>
+        <Navbar />
+      </di>
+      <h1 class="text-center">WELCOME TO PAWS PERFECT</h1>
+      {/* <h2>Auth0</h2> */}
+      {/* <LoginButton /> */}
+      {/* <LogoutButton /> */}
 
-      <Profile/>
-
+      <Profile />
     </>
   );
 }
