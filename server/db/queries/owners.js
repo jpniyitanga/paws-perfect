@@ -24,6 +24,17 @@ const getOwnerById = async (id) => {
   }
 };
 
+//Get owner by email
+const getOwnerByEmail = async (email) => {
+  try {
+    const selectedOwner = await database.query(
+      `SELECT * FROM owners WHERE email = $1`, [email]);
+    return selectedOwner;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Update existing owner
 const updateOwnerById = async (id) => {
   try {
@@ -58,4 +69,4 @@ const addOwner = async (first_name, last_name, email, sub_id, photo_url) => {
   }
 };
 
-module.exports = { addOwner, getOwners, getOwnerById, updateOwnerById };
+module.exports = { addOwner, getOwners, getOwnerById, updateOwnerById, getOwnerByEmail };

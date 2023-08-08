@@ -14,7 +14,7 @@ CREATE TABLE owners (
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	email VARCHAR(50) NOT NULL,
-  sub_id VARCHAR(250) NOT NULL,
+  sub_id VARCHAR(250),
   photo_url VARCHAR(250)
 );
 
@@ -55,7 +55,8 @@ CREATE TABLE messages_room (
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
-  sender_id INTEGER REFERENCES owners(id) REFERENCES sitters(id) ON DELETE CASCADE,
+  sender_owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE,
+  sender_sitter_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE,
   room_id INTEGER REFERENCES messages_room(id) ON DELETE CASCADE,
   message_content TEXT NOT NULL
 );

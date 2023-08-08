@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faComment, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../css/bookingRequestCss.css'; 
+import Navbar from "./Navbar";
 
 function Sitters() { // it will replaced by session information
 const sitter_id = 5; // props.sitter_id
@@ -35,6 +36,7 @@ const sitter_id = 5; // props.sitter_id
   };
 
   return (
+    <>
     <ul className="list-group pet-requests-list">
       {bookingRequests.map((request, index) => (
         <li key={index} className="list-group-item pet-request-item">
@@ -59,6 +61,19 @@ const sitter_id = 5; // props.sitter_id
         </li>
       ))}
     </ul>
+
+    
+      <Navbar />
+      <div>
+        <ul>
+          {sitters.map((sitter, key) => (
+            <li key={sitter.id}>
+              {sitter.first_name} {sitter.last_name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 
