@@ -13,9 +13,9 @@ const Home = () => {
         <Navbar />
       </di>
       <h1 class="text-center">WELCOME TO PAWS PERFECT</h1>
-      <h2>Auth0</h2>
-      <LoginButton />
-      <LogoutButton />
+      {/* <h2>Auth0</h2> */}
+      {/* <LoginButton /> */}
+      {/* <LogoutButton /> */}
 
       <Profile />
     </>

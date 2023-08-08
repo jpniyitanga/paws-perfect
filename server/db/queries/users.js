@@ -8,7 +8,7 @@ const findUser = async(sub_id) => {
 
     // Search for the user in owners table
     let result = await database.query(`SELECT * FROM owners WHERE sub_id = $1`, [sub_id]);
-    console.log("Result from owners table", result);
+    // console.log("Result from owners table", result);
     if (result.rowCount > 0) {
       // database.release();
       return result.rows[0];

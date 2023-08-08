@@ -34,7 +34,9 @@ router.put("/bookings/:id", async (req, res) => {
   try {
     const updatedBooking = await updateBookingById(req.params.id);
     res.json(updatedBooking);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 /* POST a booking */
@@ -43,7 +45,7 @@ router.post("/bookings", async (req, res) => {
     const newBooking = await addBooking();
     res.json(newBooking);
     // const sitter = await findSitterInBooking(newBooking.sitter_id);
-    // sendNewBookingNotification({sitter});
+    // sendNewBookingNotification(sitter);
   } catch (error) {
     console.error(error);
   }

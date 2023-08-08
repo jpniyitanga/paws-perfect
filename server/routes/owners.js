@@ -8,7 +8,7 @@ const { sendNewBookingNotification } = require("../helpers");
 /* GET all owners */
 router.get("/owners", async (req, res) => {
   try {
-    console.log("All Owners");
+    // console.log("All Owners");
     await sendNewBookingNotification();
     const allOwners = await getOwners();
     res.json(allOwners);
@@ -21,7 +21,7 @@ router.get("/owners", async (req, res) => {
 router.get("/owners/:id", async (req, res) => {
   try {    
     const selectedOwner = await getOwnerById(req.params.id);
-    console.log(selectedOwner);
+    // console.log(selectedOwner);
     res.json(selectedOwner);
     
   } catch (error) {
