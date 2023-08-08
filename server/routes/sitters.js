@@ -50,7 +50,6 @@ router.post("/sitters/register", async (req, res) => {
 
 // Sitters Booking request
 router.get("/sitterbookings/:id", async (req, res) => {
-  // console.log("sitter_id", req.params.id);
   try {
     const newBookingRequests = await getBookingBySitterId(req.params.id);
     res.json(newBookingRequests);
