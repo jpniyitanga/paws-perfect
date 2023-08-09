@@ -5,6 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../css/PetSittingCalendar.css';
 import axios from 'axios';
 import SitterDetailsForm from './SitterDetailsForm';
+import Navbar from "./Navbar";
 // import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -68,6 +69,8 @@ function PetSitterCalendar() {
     };
 
     return (
+      <>
+      <Navbar />
       <div className="calendar-container">
         <div className={selectedEvent ? "calendar-view" : "calendar-view full-width"}>
           <Calendar
@@ -92,6 +95,7 @@ function PetSitterCalendar() {
           </div>
         )}
       </div>
+      </>
     );
   
 }

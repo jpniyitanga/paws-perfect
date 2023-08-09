@@ -36,7 +36,10 @@ const sitter_id = 2; // props.sitter_id
   };
 
   return (
+    
     <>
+    <Navbar />
+    
     <ul className="list-group pet-requests-list">
       {bookingRequests.map((request, index) => (
         <li key={index} className="list-group-item pet-request-item">
@@ -63,7 +66,7 @@ const sitter_id = 2; // props.sitter_id
     </ul>
 
     
-      <Navbar />
+      
       {/* <div>
         <ul>
           {sitters.map((sitter, key) => (
