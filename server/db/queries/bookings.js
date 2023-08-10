@@ -121,22 +121,22 @@ const updateBookingByOwnerId = async (owner_id, id) => {
 };
 
 // CREATE new booking
-const addBooking = async () => {
+const addBooking = async ({
+  start_date,
+  end_date,
+  status,
+  pet_id,
+  owner_id,
+  sitter_id
+}) => {
+  console.log(start_date, end_date)
   try {
     const queryString =
-      "INSERT INTO bookings (start_date, end_date, status, sitter_review, sitter_rating, pet_id, owner_id, sitter_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
-    const values = [
-      start_date,
-      end_date,
-      status,
-      sitter_review,
-      sitter_rating,
-      pet_id,
-      owner_id,
-      sitter_id,
-    ];
+      "INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
+    
+    const values = [start_date, end_date, status, pet_id, owner_id, sitter_id];
     const newBooking = await database.query(queryString, values);
-    return json(newBooking);
+    return newBooking.rows[0];
   } catch (error) {
     console.error(error);
   }

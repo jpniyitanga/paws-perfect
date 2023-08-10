@@ -38,16 +38,6 @@ app.use('/', ownersRoutes);
 
 
 
-// axios
-//   .get("https://api.thecatapi.com/v1/images/0XYvRd7oD")
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-
-
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -26,8 +26,8 @@ router.post('/api/login', async (req, res) => {
       const existingUser = result.rows[0];
       res.json(existingUser);       
       
-      // Save user's id in session
-      req.session.id = result.id;
+      // Save user's sub_id in session
+      req.session.sub_id = existingUser.sub_id;
       console.log(req.session);
       res.json({' message': 'Logged in successfully' });
     }
