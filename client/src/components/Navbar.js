@@ -1,102 +1,65 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import PawsPerfectLogo from '../paws_perfect_logo.png';
 import { useAuth0 } from "@auth0/auth0-react";
 
-import {Container, Typography} from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
 
-function MainNavBar() {
+
+
+function Navbar() {
+
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
   return (
-    <Navbar bg="light" data-bs-theme="light">
-      <Container>
-        <Navbar.Brand href="/">
-          <img src="/logo1.png" alt="logo" />
-        </Navbar.Brand>
-        <Nav className="lm-auto" variant="light">
-          <Button
-            bg="light"
-            data-bs-theme="light"
-            variant="light"
-            href="/sitters"
-          >
-            Search Sitters
-          </Button>
 
-          <Button
-            bg="light"
-            data-bs-theme="light"
-            variant="light"
-            href="/owners"
-          >
-            Search Owners
-          </Button>
+    <div>
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-          <Button
-            bg="light"
-            data-bs-theme="light"
-            variant="light"
-            href="/bookings"
-          >
-            Bookings
-          </Button>
+        <a href="/"><img src={PawsPerfectLogo} alt="Paws Perfect Logo" style={{ width: '120px', height: '50px' }} /></a>
 
-          <Button bg="light" data-bs-theme="light" variant="light" href="/jobs">
-            Join the Team
-          </Button>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/sitters" class="nav-link px-2 link-secondary">Search Sitters</a></li>
+          <li><a href="/sitters/register" class="nav-link px-2 link-secondary">Join the Team</a></li>
+          <li><a href="/contact" class="nav-link px-2 link-secondary">Contact Us</a></li>
+        </ul>
 
-          <Button
-            bg="light"
-            data-bs-theme="light"
-            variant="light"
-            href="/Contact"
-          >
-            Contact Us
-          </Button>
+        {!isAuthenticated ? (
 
-          {/* <Nav.Link href="/owners">Search Owners</Nav.Link>
-          <Nav.Link href="/bookings">Bookings</Nav.Link>
-          <Nav.Link href="/jobs">Join the Team</Nav.Link>
-          <Nav.Link href="/contact">Contact Us</Nav.Link> */}
-          {!isAuthenticated ? (
-            <>
-              <Button
-                bg="light"
-                data-bs-theme="light"
-                variant="light"
-                onClick={loginWithRedirect}
-              >
-                Sign In
-              </Button>
-              <Button
-                bg="light"
-                data-bs-theme="light"
-                variant="light"
-                onClick={loginWithRedirect}
-              >
-                Sign Up
-              </Button>
-            </>
-          ) : (
-            <Button
-              bg="light"
-              data-bs-theme="light"
-              variant="light"
+          <div class="col-md-3 text-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              onClick={loginWithRedirect}
+            >
+              Sign in
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={loginWithRedirect}
+            >
+              Sign up
+            </button>
+
+          </div>
+        ) : (
+          <div class="col-md-3 text-end">
+            <button  
+              type="button" 
+              class="btn btn-outline-primary me-2" 
               onClick={() => logout({ returnTo: window.location.origin })}
             >
-              Sign Out
-            </Button>
-          )}
-        </Nav>
-      </Container>
-    </Navbar>
-  );
+              Sign out
+            </button>
+
+          </div>
+
+        )}
+      </header>
+    </div>
+
+
+  )
 }
 
-export default MainNavBar;
+export default Navbar;

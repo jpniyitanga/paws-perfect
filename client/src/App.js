@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import Owners from "./components/Owners";
-import Sitters from "./components/Sitters";
+//import Owners from "./components/Owners";
+//import Sitters from "./components/Sitters";
 import LoginForm from "./components/LoginForm";
 import Services from './components/Services';
 import Profile from './components/Profile';
@@ -10,11 +10,14 @@ import Contact from './components/Contact';
 import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
-import Navbar from "react-bootstrap/Navbar";
+//import Navbar from "react-bootstrap/Navbar";
 import PetSitterCalendar from './components/PetSitterCalendar'
+import HomepageImage from "./images/homepage.jpg";
 
-
-
+import Owners from "./components/Owners";
+import Sitters from "./components/Sitters";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
@@ -25,7 +28,7 @@ function App() {
     
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
         {/* <Route path="/owners" element={<Owners />} /> */}

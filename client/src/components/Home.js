@@ -1,24 +1,36 @@
 import React, { useEffect, useState, Fragment } from "react";
-import Owners from "./Owners";
-import Sitters from "./Sitters";
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
-import Profile from './Profile';
+import HomepageImage from "../images/homepage.jpg";
+
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import SearchSitters from "./SearchSitters";
 
-const Home = () => {
+
+function Home() {
+
   return (
-    <>
-      <di>
-        <Navbar />
-      </di>
-      <h1 class="text-center">WELCOME TO PAWS PERFECT</h1>
-      {/* <h2>Auth0</h2> */}
-      {/* <LoginButton /> */}
-      {/* <LogoutButton /> */}
+    <div class="container-fluid bg-body"
+      style={{
+        backgroundImage: `url(${HomepageImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover"
+      }}>
+      
+      <Navbar />
 
-      <Profile />
-    </>
+      <main>
+        <h1 class="text-light">Your Furry Friend's Perfect Stay</h1>
+        <h3 class="text-light">Book your pet's dream sitter and dog walkers!</h3>
+
+        <br></br>
+
+        <SearchSitters />
+
+        <br></br>       
+
+      </main>
+      <Footer />
+    </div>
   );
 }
 export default Home;
