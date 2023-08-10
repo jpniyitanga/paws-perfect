@@ -188,6 +188,7 @@ const getBookingBySitterId = async (sitter_id) => {
     p.name AS pet_name,
     p.description AS pet_description,
     p.type AS pet_type,
+    b.id,
     b.start_date AS booking_start_date,
     b.end_date AS booking_end_date,
     b.status
@@ -221,14 +222,31 @@ const createBooking = async (booking) => {
     booking.min,
     booking.max, 
     booking.status,
-    booking.sitter.pet_id,
-    booking.sitter.owner_id,
+    booking.pet_id,
+    booking.owner_id,
     booking.sitter.sitter_id
   ];
   const result = await database.query(query, values);
 
   return result.rows[0];
 }
+
+// UPDATE existing booking by id
+const updateBookingById = async (id, status) => {
+  try {
+    const queryString = `UPDATE bookings SET status=$1 WHERE id=$2`;
+    const values = [
+      status,
+      id
+    ];
+    const updatedBooking = await database.query(queryString, values);
+    return updatedBooking.rows[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 
 module.exports = {
   sendNewBookingNotification,
@@ -242,5 +260,6 @@ module.exports = {
   createBooking,
   searchSittersbyDateRange,
   dogSitters,
-  catSitters
+  catSitters,
+  updateBookingById
 };

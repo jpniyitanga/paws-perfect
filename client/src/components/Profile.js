@@ -12,21 +12,26 @@ const Profile = () => {
 
   useEffect(() => {
     console.log("from useeffect")
+    console.log("from useeffect", user)
     const checkUser = async () => {
-      try {
-        const response = await axios.post("/api/login", { sub: user.sub });
-        console.log(response)
-        
-        //redirect to homepahe
-
-        //show relevant view based on user type
-
-      } catch (error) {
-        if (error?.response?.status === 401) {
-          navigate("/register-owner");
+      if(isAuthenticated){
+        try {
+          const response = await axios.post("http://localhost:8080/api/login", { user });
+          console.log(response)
+          
+          //redirect to homepahe
+  
+          //show relevant view based on user type
+  
+        } catch (error) {
+          // if (error?.response?.status === 401) {
+          //   navigate("/register-owner");
+          // }
+          console.error(error);
         }
-        console.error(error);
+
       }
+     
     };
     checkUser()
   }, [user])
