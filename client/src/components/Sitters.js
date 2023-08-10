@@ -4,18 +4,12 @@ import { faCheck, faComment, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../css/bookingRequestCss.css';
 import Navbar from "./Navbar";
 import axios from 'axios';
+import dateFormater from '../util';
 
 function Sitters() { // it will replaced by session information
   const sitter_id = 1; // props.sitter_id
   const [bookingRequests, setBookingRequests] = useState([]);
-  const [reqid, setReqId] = useState(null);
-  const [status, setStatus] = useState('pending');
 
-  const handleStatus = {
-    reqid,
-    status
-
-  };
 
   useEffect(() => {
 
@@ -31,13 +25,14 @@ function Sitters() { // it will replaced by session information
   const handleAccept = async (request) => {
 
     // Implement your accept logic here
-    setReqId(request);
-    setStatus('Accepted');
+   
 
     try {
-      await axios.post('http://localhost:8080/updatebooking', handleStatus);
+      await axios.post('http://localhost:8080/updatebooking', {'reqid':request, 'status': 'accepted'});
       
       console.log('Booking status updated successfully');
+      window.location.reload();
+
      
     } catch (error) {
       console.error('Error updating booking status:', error);
@@ -57,13 +52,13 @@ function Sitters() { // it will replaced by session information
 
   const handleReject = async (request) => {
     // Implement your reject logic here
-    setReqId(request);
-    setStatus('Rejected');
+ 
 
     try {
-      await axios.post('http://localhost:8080/updatebooking', handleStatus);
+      await axios.post('http://localhost:8080/updatebooking', {'reqid':request, 'status': 'rejected'});
       
       console.log('Booking status updated successfully');
+      window.location.reload();
      
     } catch (error) {
       console.error('Error updating booking status:', error);
@@ -84,8 +79,8 @@ function Sitters() { // it will replaced by session information
             <p>Owner: {request.owner_full_name}</p>
             <p>Pet Type: {request.pet_type}</p>
             <p>Description: {request.pet_description}</p>
-            <p> Start Date: {request.booking_start_date}</p>
-            <p> End Date: {request.booking_end_date}</p>
+            <p> Start Date: {dateFormater(request.booking_start_date)}</p>
+            <p> End Date: {dateFormater(request.booking_end_date)}</p>
 
 
 

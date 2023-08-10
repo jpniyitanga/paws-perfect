@@ -14,6 +14,8 @@ const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
+
+
 function PetSitterCalendar() {
 
   // const { user, isAuthenticated, isLoading } = useAuth0();
@@ -25,6 +27,8 @@ function PetSitterCalendar() {
     const [loading, setLoading] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [reset, setReset] = useState(true);
+
+  
 
     useEffect(() => {
       const fetchData = async () => {

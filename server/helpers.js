@@ -246,6 +246,8 @@ const updateBookingById = async (id, status) => {
   }
 };
 
+
+
 module.exports = {
   sendNewBookingNotification,
   findOwnerInBooking,

@@ -8,6 +8,7 @@ const  {updateBookingById} =require('../helpers');
 /* UPDATE booking by id. */
 
 router.post("/", async (req, res) => {
+  console.log("in updateRequest", req.body);
   try {
     const id = req.body.reqid;
     const status = req.body.status;
