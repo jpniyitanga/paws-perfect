@@ -10,7 +10,7 @@ const {
 
 
 /* GET bookings listing. */
-router.get("/bookings", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allBookings = await getBookings();
     res.json(allBookings);
@@ -20,7 +20,7 @@ router.get("/bookings", async (req, res) => {
 });
 
 /* GET booking by id. */
-router.get("/bookings/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const selectedBooking = await getBookingById(req.params.id);
     res.json(selectedBooking);
@@ -29,15 +29,9 @@ router.get("/bookings/:id", async (req, res) => {
   }
 });
 
+
+
 /* UPDATE booking by id. */
-router.put("/bookings/:id", async (req, res) => {
-  try {
-    const updatedBooking = await updateBookingById(req.params.id);
-    res.json(updatedBooking);
-  } catch (error) {
-    console.log(error)
-  }
-});
 
 /* POST a booking */
 router.post('/bookings', async (req, res) => {

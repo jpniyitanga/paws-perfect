@@ -262,36 +262,73 @@ const updateSitterById = async (userId) => {
   }
 };
 
-//Need to confirm how to get input from user/form
-// CREATE a new sitter
-// const addSitter = async ({
-//   first_name,
-//   last_name,
-//   photo_url,
-//   email,
-//   sub_id,
-//   accepted_pet_type,
-//   availability_dates,
-// }) => {
-//   try {
-//     const query =
-//       "INSERT INTO sitters (first_name, last_name, photo_url, email, sub_id, accepted_pet_type, availability_dates) VALUES ($1, $2, $3, $4, $5, $6, $7)";
-//     const values = [
-//       first_name,
-//       last_name,
-//       photo_url,
-//       email,
-//       sub_id,
-//       accepted_pet_type,
-//       availability_dates,
-//     ];
-//     const newSitter = await database.query(query, values);
-//     return json(newSitter);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 
+// Get booking requests by sitter_id
+const getBookingBySitterId = async (sitter_id) => {
+  
+  return await database
+    .query(`SELECT 
+    o.first_name || ' ' || o.last_name AS owner_full_name,
+    p.name AS pet_name,
+    p.description AS pet_description,
+    p.type AS pet_type,
+    b.id,
+    b.start_date AS booking_start_date,
+    b.end_date AS booking_end_date,
+    b.status
+FROM 
+    bookings b
+JOIN 
+    pets p ON b.pet_id = p.id
+JOIN 
+    owners o ON b.owner_id = o.id
+WHERE 
+    b.sitter_id = $1 AND b.status = 'pending' ;
+`, [sitter_id])
+    .then((res) => {
+      console.log(res.rows);
+      return res.rows;
+    })
+    .catch((err) => console.log(err.message));
+};
+
+
+const createBooking = async (booking) => {
+  //console.log('@ helper', booking.min);
+
+  const query = 
+    `INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
+  `;
+
+  const values = [
+    booking.min,
+    booking.max, 
+    booking.status,
+    booking.pet_id,
+    booking.owner_id,
+    booking.sitter.sitter_id
+  ];
+  const result = await database.query(query, values);
+
+  return result.rows[0];
+}
+
+// UPDATE existing booking by id
+const updateBookingById = async (id, status) => {
+  try {
+    const queryString = `UPDATE bookings SET status=$1 WHERE id=$2`;
+    const values = [
+      status,
+      id
+    ];
+    const updatedBooking = await database.query(queryString, values);
+    return updatedBooking.rows[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 
@@ -308,5 +345,5 @@ module.exports = {
   searchSittersbyDateRange,
   dogSitters,
   catSitters,
-  
+  updateBookingById
 };

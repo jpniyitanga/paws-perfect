@@ -38,12 +38,13 @@ CREATE TABLE pets (
 	owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE bookings (
   id SERIAL PRIMARY KEY NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE CHECK (end_date > start_date) NOT NULL,
   status VARCHAR(50) CHECK(status IN ('pending', 'accepted', 'rejected', 'completed')) DEFAULT 'pending',
-  pet_id INTEGER REFERENCES pets(id) ON DELETE CASCADE NOT NULL,
+  pet_id INTEGER REFERENCES pets(id)  ON DELETE CASCADE NOT NULL,
   owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE NOT NULL,
   sitter_id INTEGER REFERENCES sitters(id) ON DELETE CASCADE NOT NULL
 );

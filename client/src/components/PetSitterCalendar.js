@@ -14,21 +14,31 @@ const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
+
+
 function PetSitterCalendar() {
 
   // const { user, isAuthenticated, isLoading } = useAuth0();
 
-  
+  const owner_id = 1;
     const [sittersData, setSittersData] = useState([]);
+    const [petsData, setPetsData] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [reset, setReset] = useState(true);
+
+  
 
     useEffect(() => {
       const fetchData = async () => {
         try {
           const result = await axios.get('http://localhost:8080/sitterreview');
           setSittersData(result.data);
+
+          const petsResult = await axios.get(`http://localhost:8080/pets/${owner_id}`);
+          setPetsData(petsResult.data);
+
           setLoading(false);
         } catch (error) {
           setError(error);
@@ -61,12 +71,16 @@ function PetSitterCalendar() {
       const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
       //  console.log("++++++++++++++++", selectedSitter);
       setSelectedEvent(selectedSitter);
+      //console.log("Selected event in calendar", selectedEvent);
+      setReset(true);
 
     }
 
     const handleCancel = () => {
       setSelectedEvent(null); // This will reset the view
     };
+
+    
 
     return (
       <>
@@ -91,7 +105,7 @@ function PetSitterCalendar() {
             <button className="cancel-button" onClick={handleCancel}>
               Cancel
             </button>
-            <SitterDetailsForm sitter={selectedEvent} min={dayStart} max={dayEnd} />
+            <SitterDetailsForm petsData = {petsData} owner_id = {owner_id} reset = {reset} setReset = {setReset} sitter={selectedEvent} min={dayStart} max={dayEnd} />
           </div>
         )}
       </div>

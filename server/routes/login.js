@@ -11,14 +11,15 @@ const {findUser} = require("../db/queries/users");
 
 
 // Login route
-router.post('/api/login', async (req, res) => {
-  console.log(req.body)
-  const sub = req.body
+router.post('/', async (req, res) => {
+  
+  const sub = req.body.sub;
   try {
     const result = await findUser(sub);
     
     // If user does not exist, redirect to register form
     if (!result) { 
+     
       return res.status(401).json({ message: "Invalid user, please register" });
       // res.redirect("/register");
     } else {
@@ -29,7 +30,7 @@ router.post('/api/login', async (req, res) => {
       // Save user's sub_id in session
       req.session.sub_id = existingUser.sub_id;
       console.log(req.session);
-      res.json({' message': 'Logged in successfully' });
+      res.json({' message': req.session.userid });
     }
   } catch (err) {
     console.error(err);
