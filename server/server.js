@@ -71,37 +71,6 @@ app.use(
 
 
 
-// Monitor database for changes and send email notifications
-// const sendNotification = async () => {
-//   // const { email, message } = data;
-
-//   const emailData = {
-//     to: "jpniyitanga@gmail.com",
-//     from: 'jpniyitanga@gmail.com', // Replace with your email address (sender)
-//     subject: 'Notification: You have a New Booking Request',
-//     text: "Hello"
-//   };
-
-//   try {
-//     await mail.send(emailData);
-//     console.log('Transactional email sent successfully');
-//   } catch (error) {
-//     console.error('Error sending transactional email:', error);
-//   }
-// };
-
-
-
-// Listen to database changes
-// const query = database.query('LISTEN record_update');
-
-// database.on('notification', (msg) => {
-//   console.log('Notification received:', msg.payload);
-//   sendNotification(JSON.parse(msg.payload));
-// });
-
-
-
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

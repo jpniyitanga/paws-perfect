@@ -88,7 +88,10 @@ function MainNavBar() {
               bg="light"
               data-bs-theme="light"
               variant="light"
-              onClick={() => logout({ returnTo: window.location.origin })}
+                onClick={() => {
+                  logout({ returnTo: window.location.origin });
+                localStorage.removeItem("sub_id");
+                }}
             >
               Sign Out
             </Button>
