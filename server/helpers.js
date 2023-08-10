@@ -293,60 +293,7 @@ const updateSitterById = async (userId) => {
 // };
 
 
-// Get booking requests by sitter_id
-const getBookingBySitterId = async (sitter_id) => {
-  
-  return await database
-    .query(
-      `SELECT 
-    o.first_name || ' ' || o.last_name AS owner_full_name,
-    p.name AS pet_name,
-    p.description AS pet_description,
-    p.type AS pet_type,
-    b.start_date AS booking_start_date,
-    b.end_date AS booking_end_date,
-    b.status
-FROM 
-    bookings b
-JOIN 
-    pets p ON b.pet_id = p.id
-JOIN 
-    owners o ON b.owner_id = o.id
-WHERE 
-    b.sitter_id = $1 AND b.status = 'pending' ;
-`, [sitter_id])
-    b.sitter_id = $1 AND b.status = 'pending' ;`,
-      [sitter_id]
-    )
-    .then((res) => {
-      console.log(res.rows);
-      return res.rows;
-    })
-    .catch((err) => console.log(err.message));
-};
 
-
-const createBooking = async (booking) => {
-  //console.log("@ helper", booking.min);
-
-  const query = `INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *;`;
-    RETURNING *;
-  `;
-
-  const values = [
-    booking.min,
-    booking.max,
-    booking.status,
-    booking.sitter.pet_id,
-    booking.sitter.owner_id,
-    booking.sitter.sitter_id,
-  ];
-  const result = await database.query(query, values);
-
-  return result.rows[0];
-};
 
 module.exports = {
   sendNewBookingNotification,
@@ -357,7 +304,7 @@ module.exports = {
   getSitterById,
   getBookingBySitterId,
   getSitterById,
-  createBooking,
+  // createBooking,
   searchSittersbyDateRange,
   dogSitters,
   catSitters,
