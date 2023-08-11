@@ -1,32 +1,42 @@
-const { json } = require("express");
 const { database } = require("../connection");
 
-// Function to find a user in either table
-const findUser = async(sub_id) => {
-  
-  try {    
+const findUser = async (sub_id) => {
+  try {
+    // Search for the user in the owners table
+    const ownerResult = await database.query(`SELECT * FROM owners WHERE sub_id = $1`, [sub_id]);
 
-    // Search for the user in owners table
-    let result = await database.query(`SELECT * FROM owners WHERE sub_id = $1`, [sub_id]);
-    // console.log("Result from owners table", result);
-    if (result.rowCount > 0) {
-      // database.release();
-      return result.rows[0];
+    if (ownerResult.rowCount > 0) {
+      return {
+        given_name: ownerResult.rows[0].given_name,
+        family_name: ownerResult.rows[0].family_name,
+        picture: ownerResult.rows[0].picture,
+        sub_id: ownerResult.rows[0].sub_id,
+        owner_id: ownerResult.rows[0].id,
+        role: "owner"
+      };
     }
 
-    // Search for the user in sitters table
-    result = await database.query(`SELECT * FROM sitters WHERE sub_id = $1`, [sub_id]);
-    // database.release();
+    // Search for the user in the sitters table
+    const sitterResult = await database.query(`SELECT * FROM sitters WHERE sub_id = $1`, [sub_id]);
 
-    if (result.rowCount > 0) {
-      return result.rows[0];
+    if (sitterResult.rowCount > 0) {
+      return {
+        given_name: sitterResult.rows[0].given_name,
+        family_name: sitterResult.rows[0].family_name,
+        picture: sitterResult.rows[0].picture,
+        sub_id: sitterResult.rows[0].sub_id,
+        sitter_id: sitterResult.rows[0].id,
+        role: "sitter"
+      };
     }
 
+    // Return null if the user is not found in both tables
     return null;
+
   } catch (error) {
     console.error("Error finding user:", error);
     throw error;
   }
 }
 
-module.exports = {findUser};
+module.exports = { findUser };

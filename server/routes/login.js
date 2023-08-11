@@ -18,19 +18,18 @@ router.post('/', async (req, res) => {
     const result = await findUser(sub);
     
     // If user does not exist, redirect to register form
-    if (!result) { 
-     
+    if (!result) {    
       return res.status(401).json({ message: "Invalid user, please register" });
       // res.redirect("/register");
     } else {
       // should indicate user type
-      const existingUser = result.rows[0];
+      const existingUser = result;
       res.json(existingUser);       
       
       // Save user's sub_id in session
-      req.session.sub_id = existingUser.sub_id;
-      console.log(req.session);
-      res.json({' message': req.session.userid });
+      // req.session.sub_id = existingUser.sub_id;
+      // console.log(req.session);
+      // res.json({' message': req.session.userid });
     }
   } catch (err) {
     console.error(err);
