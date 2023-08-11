@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faComment, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../css/bookingRequestCss.css'; 
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import SitterCard from "./SitterCard";
 
 function Sitters() { // it will replaced by session information
 const sitter_id = 2; // props.sitter_id
@@ -37,8 +39,16 @@ const sitter_id = 2; // props.sitter_id
 
   return (
     
-    <>
+    <div class="container-fluid bg-body">
     <Navbar />
+    <div class="d-flex flex-column">
+    <SitterCard />
+    <br></br>
+    <SitterCard />
+    <br></br>
+    <SitterCard />
+    <br></br>
+    </div>
     
     <ul className="list-group pet-requests-list">
       {bookingRequests.map((request, index) => (
@@ -76,8 +86,10 @@ const sitter_id = 2; // props.sitter_id
           ))}
         </ul>
       </div> */}
-    </>
+      <Footer />
+    </div>
   );
+  
 }
 
 export default Sitters;
