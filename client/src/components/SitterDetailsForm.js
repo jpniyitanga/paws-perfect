@@ -27,7 +27,7 @@ function SitterDetailsForm(props) {
       min: min,
       max: max
     };
-   
+
 
     // console.log("new booking", newBooking); 
 
@@ -49,26 +49,34 @@ function SitterDetailsForm(props) {
   const showSitterDetails = () => {
     if (props.reset) {
       return (
-        
+
         <div>
-          <h2>Sitter Details</h2>
+          <h2 className="sitter-details-heading">Sitter Details</h2>
           <div className="sitter-details-form">
             <div className="circular-image"> <img src={props.sitter.photo_url} alt="Sitter" /> </div>
             <p className="sitter-name">{props.sitter.first_name} {props.sitter.last_name}</p>
             <p>Pet Types: {props.sitter.accepted_pet_type.join(' | ')}</p>
             <h5>Reviews</h5>
             <p> {props.sitter.sitter_review}</p>
-            <p><StarRating rating={props.sitter.sitter_rating} /></p>
-            <>
-            <label>Select your Pet</label>
-            <select id="dropdown" value={selectedPet} onChange={handleOptionChange}>
-              {props.petsData.map((option) => (
-                <option key={option.id} value={option.id}>{option.name}</option>
-              ))}
-            </select>
-            </>
+            <StarRating rating={props.sitter.sitter_rating} />
 
-            <button type="button" onClick={handleBookRequest}>Book Sitting Request</button>
+            <div className="form-group row">
+              <label htmlFor="petSelect" className="col-sm-6 col-form-label">Select Pet:</label>
+              <div className="col-sm-6">
+                <select className="form-control" id="petSelect" value={selectedPet} onChange={handleOptionChange}>
+                  {props.petsData.map(pet => (
+                    <option key={pet.id} value={pet.id}>{pet.name}</option>
+                  ))}
+                </select>
+
+              </div>
+            </div>
+
+
+            <button className="btn btn-primary sitter-button" type="submit" onClick={handleBookRequest}>
+  Book Sitting
+</button>
+
           </div>
         </div>
       );

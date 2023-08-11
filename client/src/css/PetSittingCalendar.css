@@ -20,18 +20,29 @@
 .details-view {
   flex: 2; /* Adjusted for 40% width */
   position: relative; /* This will help position the cancel button absolutely within it */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cancel-button {
   position: absolute;
   top: 10px; 
   right: 10px;
-  background-color: #f44336; /* Red color for the button */
-  color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  background-color: #ccc;
+  color: #fff;
+  transition: background-color 0.3s;
 }
+
+
+.cancel-button:hover {
+  background-color: #999;
+}
+
 
 .full-width {
   flex: 5;
