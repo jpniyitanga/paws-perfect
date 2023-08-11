@@ -20,7 +20,7 @@ function MainNavBar() {
           <img src="/logo1.png" alt="logo" />
         </Navbar.Brand>
         <Nav className="lm-auto" variant="light">
-          <Button
+          {/* <Button
             bg="light"
             data-bs-theme="light"
             variant="light"
@@ -36,16 +36,16 @@ function MainNavBar() {
             href="/owners"
           >
             Search Owners
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             bg="light"
             data-bs-theme="light"
             variant="light"
             href="/bookings"
           >
             Bookings
-          </Button>
+          </Button> */}
 
           <Button bg="light" data-bs-theme="light" variant="light" href="/jobs">
             Join the Team
@@ -90,7 +90,8 @@ function MainNavBar() {
               variant="light"
                 onClick={() => {
                   logout({ returnTo: window.location.origin });
-                localStorage.removeItem("sub_id");
+                // localStorage.removeItem("sub_id");
+                localStorage.removeItem("user");
                 }}
             >
               Sign Out

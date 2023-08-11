@@ -20,7 +20,9 @@ function PetSitterCalendar() {
 
   // const { user, isAuthenticated, isLoading } = useAuth0();
 
-  const owner_id = 1;
+  const user = localStorage.getItem("user");
+  const owner_id = JSON.parse(user).owner_id;
+  console.log("owner id in petsittercalendar",owner_id, user);
     const [sittersData, setSittersData] = useState([]);
     const [petsData, setPetsData] = useState([]);
     const [error, setError] = useState(null);
