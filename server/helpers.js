@@ -341,7 +341,7 @@ module.exports = {
   getSitterById,
   getBookingBySitterId,
   getSitterById,
-  // createBooking,
+  createBooking,
   searchSittersbyDateRange,
   dogSitters,
   catSitters,

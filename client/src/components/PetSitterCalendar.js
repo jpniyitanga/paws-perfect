@@ -23,30 +23,68 @@ function PetSitterCalendar() {
 
   // const { user, isAuthenticated, isLoading } = useAuth0();
 
-  const owner_id = 1;
-  const [sittersData, setSittersData] = useState([]);
-  const [petsData, setPetsData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [reset, setReset] = useState(true);
+  const user = localStorage.getItem("user");
+  const owner_id = JSON.parse(user).owner_id;
+  console.log("owner id in petsittercalendar",owner_id, user);
+    const [sittersData, setSittersData] = useState([]);
+    const [petsData, setPetsData] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [reset, setReset] = useState(true);
+
+  
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const result = await axios.get('http://localhost:8080/sitterreview');
+          setSittersData(result.data);
+
+          const petsResult = await axios.get(`http://localhost:8080/pets/${owner_id}`);
+          setPetsData(petsResult.data);
+
+          setLoading(false);
+        } catch (error) {
+          setError(error);
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }, []); // Empty dependency array means this useEffect runs once when component mounts
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    }
 
 
+    const events = sittersData.flatMap(sitter => {
+      return sitter.availability_dates.map(date => ({
+        start: moment(date).set({ hour: 8, minute: 0 }).toDate(),
+        end: moment(date).set({ hour: 23, minute: 0 }).toDate(),
+        title: sitter.first_name
+      }));
+    });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get('http://localhost:8080/sitterreview');
-        setSittersData(result.data);
+    const handleEventClick = event => {
 
-        const petsResult = await axios.get(`http://localhost:8080/pets/${owner_id}`);
-        setPetsData(petsResult.data);
+      const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
+      //  console.log("++++++++++++++++", selectedSitter);
+      setSelectedEvent(selectedSitter);
+      //console.log("Selected event in calendar", selectedEvent);
+      setReset(true);
 
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
+    }
+
+    const handleCancel = () => {
+      setSelectedEvent(null); // This will reset the view
+
+
     };
 
     fetchData();

@@ -7,7 +7,8 @@ import axios from 'axios';
 import dateFormater from '../util';
 
 function Sitters() { // it will replaced by session information
-  const sitter_id = 1; // props.sitter_id
+  const user = localStorage.getItem("user");
+  const sitter_id = JSON.parse(user).sitter_id;
   const [bookingRequests, setBookingRequests] = useState([]);
 
 
@@ -24,7 +25,7 @@ function Sitters() { // it will replaced by session information
 
   const handleAccept = async (request) => {
 
-    // Implement your accept logic here
+   
    
 
     try {
@@ -51,7 +52,7 @@ function Sitters() { // it will replaced by session information
   };
 
   const handleReject = async (request) => {
-    // Implement your reject logic here
+    
  
 
     try {
