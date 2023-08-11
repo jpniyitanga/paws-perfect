@@ -9,86 +9,39 @@ import Navbar from "./Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-// import { useAuth0 } from "@auth0/auth0-react";
-
-
 const dayStart = moment().set({ hour: 8, minute: 0 });
 const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
-
-
 function PetSitterCalendar() {
-
-  // const { user, isAuthenticated, isLoading } = useAuth0();
-
   const user = localStorage.getItem("user");
   const owner_id = JSON.parse(user).owner_id;
-  console.log("owner id in petsittercalendar",owner_id, user);
-    const [sittersData, setSittersData] = useState([]);
-    const [petsData, setPetsData] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const [reset, setReset] = useState(true);
+  const [sittersData, setSittersData] = useState([]);
+  const [petsData, setPetsData] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [reset, setReset] = useState(true);
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get('http://localhost:8080/sitterreview');
+        setSittersData(result.data);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const result = await axios.get('http://localhost:8080/sitterreview');
-          setSittersData(result.data);
+        const petsResult = await axios.get(`http://localhost:8080/pets/${owner_id}`);
+        setPetsData(petsResult.data);
 
-          const petsResult = await axios.get(`http://localhost:8080/pets/${owner_id}`);
-          setPetsData(petsResult.data);
-
-          setLoading(false);
-        } catch (error) {
-          setError(error);
-          setLoading(false);
-        }
-      };
-
-      fetchData();
-    }, []); // Empty dependency array means this useEffect runs once when component mounts
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-
-
-    const events = sittersData.flatMap(sitter => {
-      return sitter.availability_dates.map(date => ({
-        start: moment(date).set({ hour: 8, minute: 0 }).toDate(),
-        end: moment(date).set({ hour: 23, minute: 0 }).toDate(),
-        title: sitter.first_name
-      }));
-    });
-
-    const handleEventClick = event => {
-
-      const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
-      //  console.log("++++++++++++++++", selectedSitter);
-      setSelectedEvent(selectedSitter);
-      //console.log("Selected event in calendar", selectedEvent);
-      setReset(true);
-
-    }
-
-    const handleCancel = () => {
-      setSelectedEvent(null); // This will reset the view
-
-
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
     };
 
     fetchData();
-  }, []); // Empty dependency array means this useEffect runs once when component mounts
+  }, [owner_id]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -97,7 +50,6 @@ function PetSitterCalendar() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
 
   const events = sittersData.flatMap(sitter => {
     return sitter.availability_dates.map(date => ({
@@ -108,20 +60,14 @@ function PetSitterCalendar() {
   });
 
   const handleEventClick = event => {
-
     const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
-    //  console.log("++++++++++++++++", selectedSitter);
     setSelectedEvent(selectedSitter);
-    //console.log("Selected event in calendar", selectedEvent);
     setReset(true);
-
   }
 
   const handleCancel = () => {
-    setSelectedEvent(null); // This will reset the view
+    setSelectedEvent(null);
   };
-
-
 
   return (
     <>
@@ -144,18 +90,14 @@ function PetSitterCalendar() {
         {selectedEvent && (
           <div className="details-view">
             <button className="cancel-button" onClick={handleCancel}>
-              <FontAwesomeIcon icon={faTimes} /> {/* Add the FontAwesome icon */}
+              <FontAwesomeIcon icon={faTimes} />
             </button>
-
             <SitterDetailsForm petsData={petsData} owner_id={owner_id} reset={reset} setReset={setReset} sitter={selectedEvent} min={dayStart} max={dayEnd} />
           </div>
         )}
       </div>
     </>
   );
-
 }
 
-
 export default PetSitterCalendar;
-//const newBooking={...props, status: "pending" }
