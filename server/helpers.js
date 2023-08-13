@@ -322,9 +322,11 @@ const updateBookingById = async (id, status) => {
     const values = [
       status,
       id
-    ];
+    ];  
     const updatedBooking = await database.query(queryString, values);
-    return updatedBooking.rows[0];
+    console.log("Rows updated:", updatedBooking.rowCount);
+
+    return updatedBooking.rowCount;
   } catch (error) {
     console.error(error);
   }

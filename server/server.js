@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 // Import Routes module
 const sittersRoutes = require('./routes/sitters');
+const sitterAvailablityRoutes = require('./routes/sitterAvailablity')
 const ownersRoutes = require('./routes/owners');
 // const bookingsRoutes = require('./routes/bookings');
 const sitterDetailRouter = require('./routes/sittersDetail');
@@ -27,6 +28,8 @@ const updatebookingRoute = require('./routes/updateRequest');
 //app.use('/bookings', bookingsRoutes);
 app.use('/sitters', sitterDetailRouter);
 app.use('/sitterreview',sitterReviewRouter);
+app.use('/sitter', sitterAvailablityRoutes); // sitters functionality routes by G
+
 
 app.use('/bookings', bookingsRoute); // Use the bookings route
 app.use('/api/login', loginRoute); // Use the bookings route

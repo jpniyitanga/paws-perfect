@@ -1,40 +1,56 @@
-/* BookingRequestsList.css */
-
-/* Styling for the whole list */
-.pet-requests-list {
-  list-style: none;
-  padding: 0;
+/* Action buttons for each booking request */
+.action-buttons {
+  display: flex;
+  gap: 10px; /* Provides spacing between buttons */
+  justify-content: center; /* Center the buttons horizontally */
+  margin-top: 20px; /* Provide a top margin for better separation from the content above */
 }
 
-/* Styling for each list item */
-.pet-request-item {
-  background-color: #f8f9fa;
-  padding: 15px;
-  margin-bottom: 10px;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.pet-request-item h5 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-
-.pet-request-item p {
-  margin: 0;
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #495057;
-}
-
-/* Styling for the action buttons */
+/* Standardize the appearance of the action buttons */
 .action-buttons button {
-  margin-right: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Styling for the button icons */
-.action-buttons button .fa {
-  margin-right: 5px;
+/* Colors for specific action buttons. Adjust as desired. */
+.action-buttons button:hover {
+  opacity: 0.8; /* Add a slight fade on hover for a hover effect */
 }
+
+/* Availability section */
+.availability-section {
+  margin-top: 50px; /* Add spacing from the Accordion above */
+  padding: 20px;
+  border-top: 1px solid #e0e0e0; /* A separator from the content above */
+}
+
+.availability-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.availability-item button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.availability-item button:hover {
+  opacity: 0.8;
+}
+
+.add-availability {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* Add other CSS styles as necessary for your design! */

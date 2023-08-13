@@ -60,8 +60,10 @@ function SitterDetailsForm(props) {
             <p> {props.sitter.sitter_review}</p>
             <StarRating rating={props.sitter.sitter_rating} />
 
+            <div className="space-between"></div>
+
             <div className="form-group row">
-              <label htmlFor="petSelect" className="col-sm-6 col-form-label">Select Pet:</label>
+              <label htmlFor="petSelect" className=" col-sm-6 col-form-label">Select Pet:</label>
               <div className="col-sm-6">
                 <select className="form-control" id="petSelect" value={selectedPet} onChange={handleOptionChange}>
                   {props.petsData.map(pet => (

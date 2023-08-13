@@ -1,11 +1,10 @@
 import React from "react";
 import Navbar from "./Navbar";
+import RegisterSitterImage from "../images/registersitter.jpeg"
 import Footer from "./Footer";
-import RegisterSitterImage from "../images/registersitter.jpeg";
 
 
 const FormSitters = () => {
-
   return (
     <div class="container-fluid bg-body">
       <Navbar />
@@ -16,7 +15,7 @@ const FormSitters = () => {
         </div>
 
         <div>
-          <div class="bd-example" style={{width: '600px'}}>
+          <div class="bd-example" style={{ width: '600px' }}>
             <form>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="John" />
@@ -47,7 +46,6 @@ const FormSitters = () => {
 
       <Footer />
     </div>
-
   );
 }
 export default FormSitters;
