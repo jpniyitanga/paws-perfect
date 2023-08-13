@@ -71,6 +71,35 @@ const sendNewBookingNotification = async (receiver) => {
 };
 
 // when using this function in bookings route, remember to pass the receiver object as a parameter
+const chatWithowner = async (message, email, name) => {  
+  console.log(message, email, name);
+  try {
+    //   const receiver = {
+    //   name: "Test",
+    //   email: "amakuru2023@gmail.com",
+    // };
+
+    await sgMail.send({
+      from: "Paws perfect <jpniyitanga@gmail.com>",      
+      templateId: "d-1684f89a209a4c4da69354a7f68febec",
+      personalizations: [
+        {
+          to: `<${email}>`,
+        },
+      ],
+      dynamicTemplateData: {
+        name: `${name}`,
+        subject: "You have a New Message!",
+        body: `${message}`
+      },
+    });
+    console.log("Transactional email sent successfully");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// when using this function in bookings route, remember to pass the receiver object as a parameter
 const sendAcceptedBookingNotification = async (receiver) => {  
   console.log(receiver);
   try {
@@ -155,28 +184,53 @@ const sendRejectedBookingNotification = async (receiver) => {
 };
 
 // GET all available sitters by date range
-const searchSittersbyDateRange = async (date_start, date_end) => {
-  try {
-    const startDate = await database.query(
-      `SELECT * FROM sitters WHERE availability_dates @> ARRAY[$1]::date[];`,
-      [date_start]
-    );
-    const endDate = await database.query(
-      `SELECT * FROM sitters WHERE availability_dates @> ARRAY[$1]::date[];`,
-      [date_end]
-    );
-    const availableSitters = await database.query(
-      `SELECT * FROM sitters WHERE availability_days BETWEEN $1 AND $2;`,
-      [startDate, endDate]
-    );
-    if (startDate > endDate) {
+// const searchSittersbyDateRange = async (date_start, date_end) => {
+//   try {
+//     const startDate = await database.query(
+//       `SELECT * FROM sitters WHERE availability_dates @> ARRAY[$1]::date[];`,
+//       [date_start]
+//     );
+//     const endDate = await database.query(
+//       `SELECT * FROM sitters WHERE availability_dates @> ARRAY[$1]::date[];`,
+//       [date_end]
+//     );
+//     const availableSitters = await database.query(
+//       `SELECT * FROM sitters WHERE availability_days BETWEEN $1 AND $2;`,
+//       [startDate, endDate]
+//     );
+//     if (startDate > endDate) {
+//       res.json({message: "Start date should be earlier than end date. Please set your dates correctly!"})
+//     }
+//     return availableSitters.rows;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// GET all available sitters by date range
+const searchSittersbyDateRange = async (start_date, end_date) => {
+  if (start_date > end_date) {
       res.json({message: "Start date should be earlier than end date. Please set your dates correctly!"})
     }
-    return availableSitters.rows;
-  } catch (error) {
-    console.error(error);
-  }
-};
+    // console.log("before calling");
+try {
+    const availableSitters = await database.query(
+      `WITH daterange AS (
+    SELECT generate_series($1::date, $2::date, interval '1 day')::date AS specific_date
+)
+SELECT *
+FROM sitters
+JOIN daterange ON daterange.specific_date = ANY(sitters.availability_dates)
+GROUP BY sitters.id, daterange.specific_date;`,
+      [start_date, end_date]
+  ); 
+  // console.log("available sitters", availableSitters);
+  return availableSitters.rows;
+} catch (error) {
+  console.error(error)
+} 
+
+}
 
 // UPDATE existing booking to accepted
 const updateBookingtoAccepted = async (id) => {
@@ -275,7 +329,9 @@ const getBookingBySitterId = async (sitter_id) => {
     b.id,
     b.start_date AS booking_start_date,
     b.end_date AS booking_end_date,
-    b.status
+    b.status,
+    o.email
+
 FROM 
     bookings b
 JOIN 
@@ -295,7 +351,7 @@ WHERE
 
 const createBooking = async (booking) => {
   //console.log('@ helper', booking.min);
-
+console.log("Booking", booking)
   const query = 
     `INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -303,12 +359,12 @@ const createBooking = async (booking) => {
   `;
 
   const values = [
-    booking.min,
-    booking.max, 
+    booking.start_date,
+    booking.end_date, 
     booking.status,
     booking.pet_id,
     booking.owner_id,
-    booking.sitter.sitter_id
+    booking.sitter_id
   ];
   const result = await database.query(query, values);
 
@@ -322,11 +378,9 @@ const updateBookingById = async (id, status) => {
     const values = [
       status,
       id
-    ];  
+    ];
     const updatedBooking = await database.query(queryString, values);
-    console.log("Rows updated:", updatedBooking.rowCount);
-
-    return updatedBooking.rowCount;
+    return updatedBooking.rows[0];
   } catch (error) {
     console.error(error);
   }
@@ -336,6 +390,9 @@ const updateBookingById = async (id, status) => {
 
 module.exports = {
   sendNewBookingNotification,
+  sendAcceptedBookingNotification,
+  sendRejectedBookingNotification,
+  sendCompletedBookingNotification,
   findOwnerInBooking,
   findSitterInBooking,
   getOwnerByEmail,

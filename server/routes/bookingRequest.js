@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { database } = require("../db/connection");
-const {createBooking} =require('../helpers');
+const {createBooking, sendNewBookingNotification, findSitterInBooking} =require('../helpers');
 
 
 
@@ -9,16 +9,26 @@ const {createBooking} =require('../helpers');
 
 /* POST a booking */
 router.post('/', async (req, res) => {
+  const newBooking = {
+    start_date: '2023-08-20',
+    end_date: '2023-08-30',
+    status: 'pending',
+    pet_id: 3,
+    owner_id: 3,
+    sitter_id: 1
+  };
+  console.log(newBooking)
   try {
-
-    const newBooking = req.body;
+    // const newBooking = req.body;
     const booking = await createBooking(newBooking);
 
     res.status(201).json({
       message: 'Booking Request successfully sent',
-      booking
+      booking     
     });
-
+    console.log(booking)
+    // const sitter = await findSitterInBooking(booking); 
+    // await sendNewBookingNotification(sitter)
 
   } catch (error) {
 
