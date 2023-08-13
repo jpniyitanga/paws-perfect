@@ -84,6 +84,7 @@ function MainNavBar() {
               </Button>
             </>
           ) : (
+            
             <Button
               bg="light"
               data-bs-theme="light"
@@ -96,6 +97,8 @@ function MainNavBar() {
             >
               Sign Out
             </Button>
+          
+            
           )}
         </Nav>
       </Container>

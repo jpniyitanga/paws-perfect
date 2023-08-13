@@ -16,7 +16,18 @@ router.get('/sitters', async (req, res) => {
 });
 
 /* GET a sitter by ID */
-router.get("/sitters/:id", async (req, res) => {
+// router.get("/sitters/:id", async (req, res) => {
+//   try {    
+//     const selectedSitter = await getSitterById(req.params.id);
+//     res.json(selectedSitter);
+    
+//   } catch (error) {
+//     console.error(error)
+//   }
+  
+// });
+
+router.get("sitteravailabilities/:id", async (req, res) => {
   try {    
     const selectedSitter = await getSitterById(req.params.id);
     res.json(selectedSitter);
