@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import dateFormater from '../util';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import Footer from './Footer';
 
 function Sitters() {
   const user = localStorage.getItem("user");
@@ -170,9 +171,12 @@ function Sitters() {
   return (
     <>
       <Navbar />
-
+      
       <div className= "booking-details">
-        
+        <div className ="availability-section">
+        <h6 className="fw-bold mb-4" style={{ fontFamily: 'Your Desired Font', fontSize: '2rem' }}>
+            Booking Requests
+          </h6>
         <Accordion defaultActiveKey={['0']}>
           {bookingRequests.map((request, index) => (
             <Accordion.Item key={index} eventKey={index.toString()}>
@@ -200,12 +204,12 @@ function Sitters() {
             </Accordion.Item>
           ))}
         </Accordion>
-       
+        </div>
 
         <div className="availability-section">
-          <h3 className="fw-bold mb-4" style={{ fontFamily: 'Your Desired Font', fontSize: '2rem' }}>
-            Your Availabilities
-          </h3>
+          <h6 className="fw-bold mb-4" style={{ fontFamily: 'Your Desired Font', fontSize: '2rem' }}>
+            Manage Availabilities
+          </h6>
           {availabilities.map((date, index) => (
             <div key={index} className="availability-item border p-3 mb-3">
               {editingAvailability && editingAvailability.getTime() === date.getTime() ? (
@@ -250,7 +254,10 @@ function Sitters() {
                 dateFormat="yyyy-MM-dd"
                 className="form-control"
               />
-            </div>
+              
+        
+            </div >
+           
             <button className="btn btn-success" onClick={() => addNewAvailability(selectedDateTime)}>
               Add Availability
             </button>
@@ -258,7 +265,9 @@ function Sitters() {
         </div>
 
       </div>
+      <Footer/>
     </>
+    
   );
 }
 
