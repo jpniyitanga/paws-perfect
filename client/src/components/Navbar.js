@@ -9,6 +9,7 @@ function Navbar() {
 
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
+
   return (
 
     <div>

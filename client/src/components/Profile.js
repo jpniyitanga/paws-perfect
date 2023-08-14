@@ -15,7 +15,7 @@ const Profile = () => {
                     const response = await axios.post("http://localhost:8080/api/login", { sub: user.sub }); // Adjust payload if needed
                     if (response.data.role === "sitter") {
                         localStorage.setItem('user', JSON.stringify(response.data)); // Store user in session storage
-                        // console.log(response.data);
+                        // console.log(" response data", response.data);
                         navigate("/sitters"); // Navigate to sitters route
                     } else if (response.data.role === "owner") {
                       localStorage.setItem('user', JSON.stringify(response.data)); // Store user in session storage
