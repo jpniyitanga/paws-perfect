@@ -17,8 +17,8 @@ function Navbar() {
         <a href="/"><img src={PawsPerfectLogo} alt="Paws Perfect Logo" style={{ width: '120px', height: '50px' }} /></a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/sitters" class="nav-link px-2 link-secondary">Search Sitters</a></li>
-          <li><a href="/register-sitter" class="nav-link px-2 link-secondary">Join the Team</a></li>
+          <li><a href="/owners" class="nav-link px-2 link-secondary">Search Sitters</a></li>
+          <li><a href="/register" class="nav-link px-2 link-secondary">Join the Team</a></li>
           <li><a href="/contact" class="nav-link px-2 link-secondary">Contact Us</a></li>
         </ul>
 

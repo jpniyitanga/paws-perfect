@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
+import RegisterPage from "./components/RegisterPage";
 //import Navbar from "react-bootstrap/Navbar";
 import PetSitterCalendar from './components/PetSitterCalendar'
 import HomepageImage from "./images/homepage.jpg";
@@ -30,6 +31,7 @@ import Footer from "./components/Footer";
 
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import SitterDetailsForm from "./components/SitterDetailsForm";
 
 const ProtectedRoute = ({ children }) => {
     const localUser = localStorage.getItem("user");
@@ -55,24 +57,27 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
-        <Route 
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
           path="/sitters"
           element={
             <ProtectedRoute>
-                <Sitters />
+              <Sitters />
             </ProtectedRoute>
           }
         />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/owners" element={<PetSitterCalendar />} />
+        <Route path="/sitters" element={<Sitters/>} />
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/register-owner" element={<FormOwners />} />
         <Route path="/register-sitter" element={<FormSitters />} />
-        <Route 
+        <Route
           path="/owners"
           element={
             <ProtectedRoute>
-                <PetSitterCalendar />
+              <PetSitterCalendar />
             </ProtectedRoute>
           }
         />
