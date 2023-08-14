@@ -4,6 +4,7 @@ import HomepageImage from "../images/homepage.jpg";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SearchSitters from "./SearchSitters";
+import Profile from "./Profile";
 
 
 function Home() {
@@ -25,7 +26,9 @@ function Home() {
         <br></br>
 
         <SearchSitters />
-
+        <Profile/>
+        
+       
         <br></br>       
 
       </main>

@@ -4,32 +4,22 @@ const { database } = require("../db/connection");
 const {createBooking, sendNewBookingNotification, findSitterInBooking} =require('../helpers');
 
 
-
-
-
 /* POST a booking */
 router.post('/', async (req, res) => {
-  const newBooking = {
-    start_date: '2023-08-20',
-    end_date: '2023-08-30',
-    status: 'pending',
-    pet_id: 3,
-    owner_id: 11,
-    sitter_id: 1
-  };
-  console.log(newBooking)
   try {
-    // const newBooking = req.body;
+
+    const newBooking = req.body;
+    console.log("newBooking", newBooking);
     const booking = await createBooking(newBooking);
 
-    // res.status(201).json({
-    //   message: 'Booking Request successfully sent',
-    //   booking     
-    // });
-    console.log(booking)
+    res.status(201).json({
+      message: 'Booking Request successfully sent',
+      booking
+    });
     const sitter = await findSitterInBooking(booking.sitter_id); 
-    console.log("Sitter: ", sitter)
-    await sendNewBookingNotification(sitter)
+    // console.log("Sitter: ", sitter)
+    await sendNewBookingNotification(sitter);
+
 
   } catch (error) {
 

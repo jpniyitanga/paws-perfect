@@ -6,9 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faComment, faTimes, faEdit, faTrash, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import '../css/bookingRequestCss.css';
 import Navbar from "./Navbar";
-import Footer from "./Footer";
-import SitterCard from "./SitterCard";
-//import axios from 'axios';
 import dateFormater from '../util';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -170,14 +167,6 @@ const addNewAvailability = async (newDateStr) => {
   return (
     <>
       <Navbar />
-      <div class="d-flex flex-column">
-        <SitterCard />
-        <br></br>
-        <SitterCard />
-        <br></br>
-        <SitterCard />
-        <br></br>
-      </div>
 
 
       <Accordion defaultActiveKey={['0']}>
@@ -248,7 +237,6 @@ const addNewAvailability = async (newDateStr) => {
      
     </>
   );
-
 }
 
 export default Sitters;

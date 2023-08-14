@@ -11,23 +11,12 @@ import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
 import RegisterPage from "./components/RegisterPage";
-//import Navbar from "react-bootstrap/Navbar";
+
 import PetSitterCalendar from './components/PetSitterCalendar'
 import HomepageImage from "./images/homepage.jpg";
-// import Services from "./components/Services";
-// import Profile from "./components/Profile";
-// import Home from "./components/Home";
-// import Contact from "./components/Contact";
-// import Bookings from "./components/Bookings";
-// import FormOwners from "./components/FormOwners";
-// import FormSitters from "./components/FormSitters";
-//import Navbar from "react-bootstrap/Navbar";
-//import PetSitterCalendar from "./components/PetSitterCalendar";
 
-//import Owners from "./components/Owners";
-//import Sitters from "./components/Sitters";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+
+
 
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
@@ -68,8 +57,7 @@ function App() {
         />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/owners" element={<PetSitterCalendar />} />
-        <Route path="/sitters" element={<Sitters/>} />
+
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/register-owner" element={<FormOwners />} />
         <Route path="/register-sitter" element={<FormSitters />} />

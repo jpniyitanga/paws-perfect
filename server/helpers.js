@@ -351,7 +351,7 @@ WHERE
 
 const createBooking = async (booking) => {
   //console.log('@ helper', booking.min);
-console.log("Booking", booking)
+
   const query = 
     `INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -359,17 +359,18 @@ console.log("Booking", booking)
   `;
 
   const values = [
-    booking.start_date,
-    booking.end_date, 
+    booking.min,
+    booking.max, 
     booking.status,
     booking.pet_id,
     booking.owner_id,
-    booking.sitter_id
+    booking.sitter.sitter_id
   ];
   const result = await database.query(query, values);
 
   return result.rows[0];
 }
+
 
 // UPDATE existing booking by id
 const updateBookingById = async (id, status) => {
