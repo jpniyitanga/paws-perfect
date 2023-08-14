@@ -38,17 +38,17 @@ function Sitters() {
 
     // Fetch availabilities
     axios.get(`http://localhost:8080/sitter/availability/${sitter_id}`)
-    .then((response) => {
-      console.log("availabilities", response);
+      .then((response) => {
+        console.log("availabilities", response);
 
-      // Ensure we're getting an array of dates and then map it to JavaScript Date objects
-      if (Array.isArray(response.data[0].availability_dates)) { 
-        setAvailabilities(response.data[0].availability_dates.map(dateString => new Date(dateString)));
-      }
+        // Ensure we're getting an array of dates and then map it to JavaScript Date objects
+        if (Array.isArray(response.data[0].availability_dates)) {
+          setAvailabilities(response.data[0].availability_dates.map(dateString => new Date(dateString)));
+        }
 
-      console.log("availabilities", availabilities);
-    })
-    .catch((error) => console.error(error));
+        console.log("availabilities", availabilities);
+      })
+      .catch((error) => console.error(error));
 
   }, []);
 
@@ -97,144 +97,167 @@ function Sitters() {
 
   const updateAvailability = async (oldDateStr) => {
     try {
-        // Convert the oldDate string to a Date object before calling toISOString
-        const oldDateObj = new Date(oldDateStr);
-        
-        const response = await axios.put(`http://localhost:8080/sitter/availability`, {
-            oldDate: oldDateObj.toISOString(),
-            newDate: selectedDateTime.toISOString(),
-            sitterId: sitter_id
-        });
+      // Convert the oldDate string to a Date object before calling toISOString
+      const oldDateObj = new Date(oldDateStr);
 
-        if (response.data.success) {
-            // Update the local state after a successful API call
-            setAvailabilities(prev => {
-                const updatedDates = [...prev];
-                const index = updatedDates.findIndex(date => date.toISOString() === oldDateStr); // Compare as string form
-                if (index > -1) {
-                    updatedDates[index] = selectedDateTime; // Directly use the Date object, not its string form
-                }
-                return updatedDates;
-            });
-            setEditingAvailability(null);
-            window.location.reload();
+      const response = await axios.put(`http://localhost:8080/sitter/availability`, {
+        oldDate: oldDateObj.toISOString(),
+        newDate: selectedDateTime.toISOString(),
+        sitterId: sitter_id
+      });
+
+      if (response.data.success) {
+        // Update the local state after a successful API call
+        setAvailabilities(prev => {
+          const updatedDates = [...prev];
+          const index = updatedDates.findIndex(date => date.toISOString() === oldDateStr); // Compare as string form
+          if (index > -1) {
+            updatedDates[index] = selectedDateTime; // Directly use the Date object, not its string form
           }
-    } catch (error) {
-        console.error("Error updating availability:", error);
-    }
-};
-const deleteAvailability = async (dateToDeleteStr) => {
-    try {
-        const dateToDeleteObj = new Date(dateToDeleteStr);
-
-        const response = await axios.delete(`http://localhost:8080/sitter/availability`, {
-            data: { dateToRemove: dateToDeleteObj.toISOString(), sitterId: sitter_id }
+          return updatedDates;
         });
-
-        if (response.data.success) {
-            // Update the local state after a successful API call
-            setAvailabilities(prev => {
-                const updatedDates = prev[0].availability_dates.filter(date => date !== dateToDeleteStr);
-                return [{ availability_dates: updatedDates }];
-            });
-        }
+        setEditingAvailability(null);
+        window.location.reload();
+      }
     } catch (error) {
-        console.error("Error deleting availability:", error);
+      console.error("Error updating availability:", error);
     }
-};
-
-const addNewAvailability = async (newDateStr) => {
+  };
+  const deleteAvailability = async (dateToDeleteStr) => {
     try {
-        const newDateObj = new Date(newDateStr);
+      const dateToDeleteObj = new Date(dateToDeleteStr);
 
-        const response = await axios.post('http://localhost:8080/sitter/availability', {
-            availabilityDate: newDateObj.toISOString(),
-            sitterId: sitter_id
+      const response = await axios.delete(`/sitter/availability`, {
+        data: { dateToRemove: dateToDeleteObj.toISOString(), sitterId: sitter_id }
+      });
+
+      if (response.data.success) {
+        // Update the local state after a successful API call
+        setAvailabilities(prev => {
+          const updatedDates = prev.filter(date => date.toISOString() !== dateToDeleteStr); // Compare as string form
+          return updatedDates;
+
         });
-
-        if (response.data.success) {
-            // Update the local state after a successful API call
-            setAvailabilities(prev => {
-                const updatedDates = [...prev[0].availability_dates, newDateObj.toISOString()];
-                return [{ availability_dates: updatedDates }];
-            });
-        }
+      }
     } catch (error) {
-        console.error("Error adding new availability:", error);
+      console.error("Error deleting availability:", error);
     }
-};
+    window.location.reload();
+  };
+
+  const addNewAvailability = async (newDateStr) => {
+    try {
+      const newDateObj = new Date(newDateStr);
+
+      const response = await axios.post(`/sitter/availability`, {
+        availabilityDate: newDateObj.toISOString(),
+        sitterId: sitter_id
+      });
+
+      if (response.data.success) {
+        // Update the local state after a successful API call
+        setAvailabilities(prev => {
+          const updatedDates = [...prev, newDateObj]; // Directly add the Date object
+          return updatedDates;
+        });
+      }
+    } catch (error) {
+      console.error("Error adding new availability:", error);
+    }
+    window.location.reload();
+  };
 
   return (
     <>
       <Navbar />
 
+      <div className= "booking-details">
+        
+        <Accordion defaultActiveKey={['0']}>
+          {bookingRequests.map((request, index) => (
+            <Accordion.Item key={index} eventKey={index.toString()}>
+              <Accordion.Header>
+                <Button variant="link">
+                  Owner: {request.owner_full_name} - Pet Type: {request.pet_type}
+                </Button>
+              </Accordion.Header>
+              <Accordion.Body>
+                <p>Description: {request.pet_description}</p>
+                <p>Start Date: {new Date(request.booking_start_date).toLocaleDateString()}</p>
+                <p>End Date: {new Date(request.booking_end_date).toLocaleDateString()}</p>
+                <div className="action-buttons">
+                  <button type="button" className="btn btn-success mr-2" onClick={() => handleAccept(request.id)}>
+                    <FontAwesomeIcon icon={faCheck} /> Accept
+                  </button>
+                  <button type="button" className="btn btn-primary mr-2" onClick={() => handleChat(request)}>
+                    <FontAwesomeIcon icon={faComment} /> Chat with Owner
+                  </button>
+                  <button type="button" className="btn btn-danger" onClick={() => handleReject(request.id)}>
+                    <FontAwesomeIcon icon={faTimes} /> Reject
+                  </button>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+       
 
-      <Accordion defaultActiveKey={['0']}>
-        {bookingRequests.map((request, index) => (
-          <Accordion.Item key={index} eventKey={index.toString()}>
-            <Accordion.Header>
-              <Button variant="link">
-                Owner: {request.owner_full_name} - Pet Type: {request.pet_type}
-              </Button>
-            </Accordion.Header>
-            <Accordion.Body>
-              <p>Description: {request.pet_description}</p>
-              <p>Start Date: {new Date(request.booking_start_date).toLocaleDateString()}</p>
-              <p>End Date: {new Date(request.booking_end_date).toLocaleDateString()}</p>
-              <div className="action-buttons">
-                <button type="button" className="btn btn-success mr-2" onClick={() => handleAccept(request.id)}>
-                  <FontAwesomeIcon icon={faCheck} /> Accept
-                </button>
-                <button type="button" className="btn btn-primary mr-2" onClick={() => handleChat(request)}>
-                  <FontAwesomeIcon icon={faComment} /> Chat with Owner
-                </button>
-                <button type="button" className="btn btn-danger" onClick={() => handleReject(request.id)}>
-                  <FontAwesomeIcon icon={faTimes} /> Reject
-                </button>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        ))}
-      </Accordion>
-
-      <div className="availability-section">
-    <h2>Your Availability</h2>
-      {availabilities.map((date, index) => (
-    <div key={index} className="availability-item">
-        {editingAvailability && editingAvailability.getTime() === date.getTime() ? (
-            <>
-                <DatePicker
-                    selected={selectedDateTime}
-                    onChange={setSelectedDateTime}
-                    dateFormat="yyyy-MM-dd"
-                    minDate={new Date()}
-                />
-                <button onClick={() => updateAvailability(date)}>
+        <div className="availability-section">
+          <h3 className="fw-bold mb-4" style={{ fontFamily: 'Your Desired Font', fontSize: '2rem' }}>
+            Your Availabilities
+          </h3>
+          {availabilities.map((date, index) => (
+            <div key={index} className="availability-item border p-3 mb-3">
+              {editingAvailability && editingAvailability.getTime() === date.getTime() ? (
+                <>
+                  <div className="mb-2">
+                    <DatePicker
+                      selected={selectedDateTime}
+                      onChange={setSelectedDateTime}
+                      dateFormat="yyyy-MM-dd"
+                      minDate={new Date()}
+                      className="form-control"
+                    />
+                  </div>
+                  <button className="btn btn-primary me-2" onClick={() => updateAvailability(date)}>
                     <FontAwesomeIcon icon={faEdit} /> Update
-                </button>
-                <button onClick={() => setEditingAvailability(null)}>
+                  </button>
+                  <button className="btn btn-secondary" onClick={() => setEditingAvailability(null)}>
                     <FontAwesomeIcon icon={faTimes} /> Cancel
-                </button>
-            </>
-        ) : (
-            <>
-                <span>{dateFormater(date)}</span>
-                <button onClick={() => {
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span>{dateFormater(date)}</span>
+                  <button className="btn btn-primary ms-2 me-2" onClick={() => {
                     setEditingAvailability(date);
                     setSelectedDateTime(date);
-                }}>
+                  }}>
                     <FontAwesomeIcon icon={faEdit} /> Edit
-                </button>
-                <button onClick={() => deleteAvailability(date)}>
+                  </button>
+                  <button className="btn btn-danger" onClick={() => deleteAvailability(date)}>
                     <FontAwesomeIcon icon={faTrash} /> Delete
-                </button>
-            </>
-        )}
-    </div>
-))}
-</div>
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+          <div className="add-availability p-3 border-top">
+            <div className="mb-2">
+              <DatePicker
+                selected={selectedDateTime}
+                onChange={setSelectedDateTime}
+                dateFormat="yyyy-MM-dd"
+                className="form-control"
+              />
+            </div>
+            <button className="btn btn-success" onClick={() => addNewAvailability(selectedDateTime)}>
+              Add Availability
+            </button>
+          </div>
+        </div>
 
-     
+      </div>
     </>
   );
 }

@@ -13,6 +13,7 @@ import LogoutButton from './LogoutButton';
 function MainNavBar() {
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
+
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
@@ -84,7 +85,7 @@ function MainNavBar() {
               </Button>
             </>
           ) : (
-            
+          
             <Button
               bg="light"
               data-bs-theme="light"
@@ -92,11 +93,13 @@ function MainNavBar() {
                 onClick={() => {
                   logout({ returnTo: window.location.origin });
                 // localStorage.removeItem("sub_id");
-                localStorage.removeItem("user");
+                localStorage.removeItem("userinfo");
                 }}
             >
               Sign Out
             </Button>
+           
+            
           
             
           )}
