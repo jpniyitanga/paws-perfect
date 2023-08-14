@@ -24,7 +24,7 @@ const findSitterInBooking = async (sitter_id) => {
       `SELECT first_name, email FROM sitters WHERE id = $1;`,
       [sitter_id]
     );
-    return sitter;
+    return sitter.rows[0];
   } catch (error) {
     console.error(error);
   }
@@ -36,7 +36,7 @@ const findOwnerInBooking = async (owner_id) => {
       `SELECT first_name, email FROM owners WHERE id = $1;`,
       [owner_id]
     );
-    return owner;
+    return owner.rows[0];
   } catch (error) {
     console.error(error);
   }
@@ -374,7 +374,7 @@ console.log("Booking", booking)
 // UPDATE existing booking by id
 const updateBookingById = async (id, status) => {
   try {
-    const queryString = `UPDATE bookings SET status=$1 WHERE id=$2`;
+    const queryString = `UPDATE bookings SET status=$1 WHERE id=$2 RETURNING *`;
     const values = [
       status,
       id

@@ -40,7 +40,7 @@ router.post('/bookings', async (req, res) => {
     end_date: "2023-08-27",
     status: "pending",
     pet_id: 1,
-    owner_id: 1,
+    owner_id: 11,
     sitter_id: 1,
   };
   try {

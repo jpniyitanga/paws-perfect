@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     end_date: '2023-08-30',
     status: 'pending',
     pet_id: 3,
-    owner_id: 3,
+    owner_id: 11,
     sitter_id: 1
   };
   console.log(newBooking)
@@ -22,13 +22,14 @@ router.post('/', async (req, res) => {
     // const newBooking = req.body;
     const booking = await createBooking(newBooking);
 
-    res.status(201).json({
-      message: 'Booking Request successfully sent',
-      booking     
-    });
+    // res.status(201).json({
+    //   message: 'Booking Request successfully sent',
+    //   booking     
+    // });
     console.log(booking)
-    // const sitter = await findSitterInBooking(booking); 
-    // await sendNewBookingNotification(sitter)
+    const sitter = await findSitterInBooking(booking.sitter_id); 
+    console.log("Sitter: ", sitter)
+    await sendNewBookingNotification(sitter)
 
   } catch (error) {
 
