@@ -4,7 +4,20 @@ const morgan = require("morgan");
 const cors = require("cors");
 const session = require("express-session");
 const app = express();
-app.use(cors());
+
+const allowlist = ["http://localhost:3000"];
+const corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+
+app.use(cors(corsOptionsDelegate));
 
 const bodyParser = require('body-parser');
 
@@ -22,6 +35,8 @@ const loginRoute = require('./routes/login');
 const bookingRequestsRoute = require('./routes/bookingRequest');
 const petRoute = require('./routes/pets');
 const updatebookingRoute = require('./routes/updateRequest');
+const sendMessageRoute = require("./routes/bookings");
+
 
 //Use Routers
 //app.use('/', usersRoutes);
@@ -36,6 +51,7 @@ app.use('/api/login', loginRoute); // Use the bookings route
 app.use('/bookingrequest', bookingRequestsRoute);
 app.use('/pets', petRoute);
 app.use('/updatebooking', updatebookingRoute)
+app.use("/bookings/send", sendMessageRoute);
 
 
 

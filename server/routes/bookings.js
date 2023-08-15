@@ -5,6 +5,7 @@ const { getBookings, updateBookingById, getBookingById,  } = require('../db/quer
 const {
   sendNewBookingNotification,
   findSitterInBooking,
+  chatWithOwner,
   createBooking
 } = require("../helpers");
 

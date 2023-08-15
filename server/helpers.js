@@ -71,29 +71,31 @@ const sendNewBookingNotification = async (receiver) => {
 };
 
 // when using this function in bookings route, remember to pass the receiver object as a parameter
-const chatWithowner = async (message, email, name) => {  
-  console.log(message, email, name);
+const chatWithOwner = async (message) => {
+  console.log(message);
   try {
     //   const receiver = {
     //   name: "Test",
     //   email: "amakuru2023@gmail.com",
     // };
 
-    await sgMail.send({
-      from: "Paws perfect <jpniyitanga@gmail.com>",      
-      templateId: "d-1684f89a209a4c4da69354a7f68febec",
+    const response = await sgMail.send({
+      from: "Paws perfect <jpniyitanga@gmail.com>",
+      templateId: "d-0f9aad3c7df74a97b0e062c2de9242bd",
       personalizations: [
         {
-          to: `<${email}>`,
+          to: `<${message.email}>`,
         },
       ],
       dynamicTemplateData: {
-        name: `${name}`,
-        subject: "You have a New Message!",
-        body: `${message}`
+        name: `${message.name}`,
+        subject: "You Have a Message About Your booking",
+        text: `${message.userMessage}.  Sent by: ${message.sitterName}. You can reply to: ${message.sitterEmail}.`,
+        html: `${message.userMessage}.  Sent by: ${message.sitterName}. You can reply to: ${message.sitterEmail}.`,
       },
     });
     console.log("Transactional email sent successfully");
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -394,6 +396,7 @@ module.exports = {
   sendAcceptedBookingNotification,
   sendRejectedBookingNotification,
   sendCompletedBookingNotification,
+  chatWithOwner,
   findOwnerInBooking,
   findSitterInBooking,
   getOwnerByEmail,
