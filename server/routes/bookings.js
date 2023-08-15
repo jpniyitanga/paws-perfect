@@ -36,16 +36,9 @@ router.get("/:id", async (req, res) => {
 
 /* POST a booking */
 router.post('/bookings', async (req, res) => {
-  const booking = {
-    start_date: "2023-08-26",
-    end_date: "2023-08-27",
-    status: "pending",
-    pet_id: 1,
-    owner_id: 11,
-    sitter_id: 1,
-  };
+  
   try {
-    const newBooking = await createBooking(booking);
+    const newBooking = await createBooking(req, body);
     // res.json(newBooking);
     // console.log(newBooking, "Hello")
     const sitter = await findSitterInBooking(newBooking.sitter_id)
@@ -61,10 +54,7 @@ router.post('/bookings', async (req, res) => {
 /* Message owner through Sendgrid */
 router.post('/send', async (req, res) => {
   try {
-    // const message = "Hello";
-    // const email = 'amakuru2023@gmail.com';
-    // const name = 'John';
-    // const sitterEmail= 'email@email.com';
+    
     console.log("Request", req.body)
 
     const response = await chatWithOwner(req.body)   

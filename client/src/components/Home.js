@@ -26,7 +26,7 @@ function Home() {
         <br></br>
 
         <SearchSitters />
-        <Profile/>
+        {/* <Profile/> */}
         
        
         <br></br>       
