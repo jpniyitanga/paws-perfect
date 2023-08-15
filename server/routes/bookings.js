@@ -58,4 +58,23 @@ router.post('/bookings', async (req, res) => {
   }
 });
 
+/* Message owner through Sendgrid */
+router.post('/send', async (req, res) => {
+  try {
+    // const message = "Hello";
+    // const email = 'amakuru2023@gmail.com';
+    // const name = 'John';
+    // const sitterEmail= 'email@email.com';
+    console.log("Request", req.body)
+
+    const response = await chatWithOwner(req.body)   
+    console.log("response", response)
+    res.json({message: "Email sent!"})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error creating booking' });
+  
+  }
+});
+
 module.exports = router;
