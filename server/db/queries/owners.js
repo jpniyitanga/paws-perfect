@@ -69,4 +69,17 @@ const addOwner = async (first_name, last_name, email, sub_id, photo_url) => {
   }
 };
 
-module.exports = { addOwner, getOwners, getOwnerById, updateOwnerById, getOwnerByEmail };
+//Get owner id by sub_id
+const getOwnerBySub_Id = async (sub_id) => {
+  try {
+    const selectedOwner = await database.query(
+      `SELECT id FROM owners WHERE sub_id = $1`,
+      [sub_id]
+    );
+    return selectedOwner.rows[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports = { addOwner, getOwners, getOwnerById, updateOwnerById, getOwnerByEmail, getOwnerBySub_Id };
