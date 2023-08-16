@@ -8,6 +8,7 @@ import SitterDetailsForm from './SitterDetailsForm';
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import Footer from './Footer';
 
 const dayStart = moment().set({ hour: 8, minute: 0 });
 const dayEnd = moment().set({ hour: 23, minute: 0 });
@@ -72,7 +73,7 @@ function PetSitterCalendar() {
   return (
     <>
       <Navbar />
-      <div className="calendar-container">
+      <div className="calendar-container" >
         <div className={selectedEvent ? "calendar-view" : "calendar-view full-width"}>
           <Calendar
             localizer={localizer}
@@ -96,6 +97,7 @@ function PetSitterCalendar() {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 }

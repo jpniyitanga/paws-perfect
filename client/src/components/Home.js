@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SearchSitters from "./SearchSitters";
 import Profile from "./Profile";
+import "../css/home.css"
 
 
 function Home() {
@@ -19,17 +20,12 @@ function Home() {
       
       <Navbar />
 
-      <main>
-        <h1 class="text-light">Your Furry Friend's Perfect Stay</h1>
-        <h3 class="text-light">Book your pet's dream sitter and dog walkers!</h3>
-
-        <br></br>
+      <main className="content">
+        <h1 className="main-heading">Your Furry Friend's Perfect Stay</h1>
+        <h3 className="subheading">Book your pet's dream sitter and dog walkers!</h3>
 
         <SearchSitters />
-        <Profile/>
-        
-       
-        <br></br>       
+        <Profile />
 
       </main>
       <Footer />

@@ -6,7 +6,6 @@
   align-items: center; /* Center content horizontally */
   padding: 20px;
   
-
 }
 
 .circular-image {
@@ -34,13 +33,13 @@
 }
 
 .sitter-review {
-  font-size: 1rem;
+  font-size: 4rem;
 }
 
 .sitter-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #094789;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -49,7 +48,7 @@
 }
 
 .sitter-button:hover {
-  background-color: #0056b3;
+  background-color: #082f58;
 }
 .sitter-details-heading {
   font-size: 24px; /* Adjust the font size as needed */
@@ -57,6 +56,7 @@
   margin-bottom: 20px; /* Add spacing at the bottom */
   margin-left: 10px;
   margin-top: 10px;
+  
 }
 .space-between {
   margin-top: 20px; /* Adjust the value as needed */
@@ -64,7 +64,24 @@
 .form-group.row {
   display: flex;
   align-items: left;
+ 
+
 }
+.form-group-row-container {
+  border-top: 4px solid #ccc; /* Increase the border width for prominence */
+  padding-top: 30px; /* Add top padding for separation */
+  width: 60%; /* Expand the container to full width */
+  padding-top: 20px;
+}
+.custom-dropdown {
+  max-height: 150px; /* Adjust the value as needed */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
+}
+
+ 
+
+
+
 
 
 
