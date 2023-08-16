@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "../css/Forms.css";
+import Navbar from "./Navbar";
 
 const Register = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -23,34 +24,37 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div className="Form-header">
-        <h1>Registeration</h1>
-      </div>
-      {!userInfo ? (
-        <Container className="register-links">
-          <Row className="justify-content-center">
-            <Link to="/register-owner" className="btn btn-primary">
-              Register as a pet owner
-            </Link>
-
-            <Link to="/register-sitter" className="btn btn-primary">
-              Register as a pet sitter
-            </Link>
-          </Row>
-        </Container>
-      ) : (
-        <Container className="text-center">
-          <Row className="justify-content-center mt-5">
-            <Col md={6} className="text-center">
-              <Link to="/bookings" className="btn btn-primary">
-                Your Bookings
+    <>
+      <Navbar />
+      <main>
+        <div className="Form-header">
+          <h1>NEW USER REGISTRATION</h1>
+        </div>
+        {!userInfo ? (
+          <Container className="register-links">
+            <Row className="justify-content-center">
+              <Link to="/register-owner" className="btn btn-primary">
+                Register as a Pet Owner
               </Link>
-            </Col>
-          </Row>
-        </Container>
-      )}
-    </div>
+
+              <Link to="/register-sitter" className="btn btn-primary">
+                Register as a Pet Sitter
+              </Link>
+            </Row>
+          </Container>
+        ) : (
+          <Container className="text-center">
+            <Row className="justify-content-center mt-5">
+              <Col md={6} className="text-center">
+                <Link to="/bookings" className="btn btn-primary">
+                  Your Bookings
+                </Link>
+              </Col>
+            </Row>
+          </Container>
+        )}
+      </main>
+    </>
   );
 };
 
