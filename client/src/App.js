@@ -11,6 +11,7 @@ import Bookings from './components/Bookings';
 import FormOwners from './components/FormOwners';
 import FormSitters from './components/FormSitters';
 import RegisterPage from "./components/RegisterPage";
+import Register from "./components/Register";
 
 import PetSitterCalendar from './components/PetSitterCalendar'
 import HomepageImage from "./images/homepage.jpg";
@@ -21,6 +22,7 @@ import HomepageImage from "./images/homepage.jpg";
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import SitterDetailsForm from "./components/SitterDetailsForm";
+// import Register from "./components/Register";
 
 const ProtectedRoute = ({ children }) => {
     const localUser = localStorage.getItem("user");
@@ -46,7 +48,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<Register/>} />
         <Route
           path="/sitters"
           element={

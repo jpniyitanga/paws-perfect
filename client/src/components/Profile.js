@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-    const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated, logout } = useAuth0();
     const navigate = useNavigate();
     // console.log("user in profile", user);
     useEffect(() => {
@@ -19,12 +19,16 @@ const Profile = () => {
                         navigate("/sitters"); // Navigate to sitters route
                     } else if (response.data.role === "owner") {
                       localStorage.setItem('user', JSON.stringify(response.data)); // Store user in session storage
+                    
                         navigate("/owners"); // Navigate to owners route
                     }
                 } catch (error) {
                     if (error.response && error.response.status === 401) {
                         console.error("Unauthorized user");
                         // Handle error or show message to the user
+                        localStorage.removeItem("user");
+                        navigate("/register");
+
                     } else {
                         console.error(error);
                     }
