@@ -291,6 +291,10 @@ function Sitters() {
               )}
             </div>
           ))}
+          
+          <div className="space-between"></div>
+        
+
           <div className="add-availability p-3 border-top">
             <div className="mb-2">
               <DatePicker

@@ -4,7 +4,7 @@
   background-position: left;
   background-repeat: no-repeat;
   color: rgb(145, 139, 139);
-  padding: 50px;
+  /* padding: 10px; */
   text-align: center;
   margin: 50px;
 }
@@ -25,4 +25,13 @@
 .register-links .btn-primary {
   margin-top: 50px;
   padding: 20px;
+}
+
+.custom-input {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 4px; /* Adjust as needed */
 }

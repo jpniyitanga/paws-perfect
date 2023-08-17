@@ -94,11 +94,14 @@ function Register() {
                         </Col>
                         <Col xs={8}>
                           <Field
-                            type="text"
+                            as="select"
                             name="pet_type"
-                            placeholder=""
                             className="form-control custom-input"
-                          />
+                          >
+                            <option value="">Select a type</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Dog">Dog</option>
+                          </Field>
                           <ErrorMessage name="pet_type" component="div" />
                         </Col>
                       </Row>
