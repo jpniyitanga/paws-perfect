@@ -2,7 +2,7 @@
 
 INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Ralphie', 'cat', 'A mostly white, red mackerel tabby classic tabby tom, with short fur and yellow eyes.
 ', 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg', 1);
-INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Wally', 'cat', 'A short haired, cream classic tabby tom, with hazel eyes.', 'https://cdn2.thecatapi.com/images/VZ3qFLIe3.jpg', 2);
+INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Bonnie', 'cat', 'A short haired, cream classic tabby tom, with hazel eyes.', 'https://cdn2.thecatapi.com/images/VZ3qFLIe3.jpg', 12);
 INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Bubba', 'cat', 'A red spotted "pseudo-tabby" tom with short fur, a white throat, and yellow eyes.', 'https://cdn2.thecatapi.com/images/aaxNf4D0H.jpg', 3);
 INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Margot', 'cat', 'TA long haired, black tom, with hazel eyes.', 'https://cdn2.thecatapi.com/images/iWyIaja-G.jpg', 4);
 INSERT INTO pets (name, type, description, image_url, owner_id) VALUES ('Gladis', 'dog', 'A short haired, red mackerel tabby tom, with yellow eyes.', 'https://cdn2.thecatapi.com/images/8RsP7Xt3h.jpg', 5);

@@ -10,8 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Footer from './Footer';
 
-const dayStart = moment().set({ hour: 8, minute: 0 });
-const dayEnd = moment().set({ hour: 23, minute: 0 });
 
 const localizer = momentLocalizer(moment);
 
@@ -24,6 +22,8 @@ function PetSitterCalendar() {
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [reset, setReset] = useState(true);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,15 +52,37 @@ function PetSitterCalendar() {
     return <div>Error: {error.message}</div>;
   }
 
+  // const events = sittersData.flatMap(sitter => {
+  //   return sitter.availability_dates.map(date => ({
+  //     start: moment(date).set({ hour: 8, minute: 0 }).toDate(),
+  //     end: moment(date).set({ hour: 23, minute: 0 }).toDate(),
+  //     title: sitter.first_name
+  //   }));
+  // });
+
   const events = sittersData.flatMap(sitter => {
     return sitter.availability_dates.map(date => ({
       start: moment(date).set({ hour: 8, minute: 0 }).toDate(),
       end: moment(date).set({ hour: 23, minute: 0 }).toDate(),
       title: sitter.first_name
     }));
-  });
+  }).filter(event => moment(event.start).isSameOrAfter(moment(), 'day')); // Filter out events before today
+  
+
+  
+
+
 
   const handleEventClick = event => {
+    const startDate = moment(event.start).format('YYYY-MM-DD HH:mm:ss');
+    const endDate = moment(event.end).format('YYYY-MM-DD HH:mm:ss');
+
+    setStartDate(startDate);
+    setEndDate(endDate);
+
+
+
+    
     const selectedSitter = sittersData.find(sitter => sitter.first_name === event.title);
     setSelectedEvent(selectedSitter);
     setReset(true);
@@ -83,8 +105,10 @@ function PetSitterCalendar() {
             defaultView="month"
             views={['week', 'month']}
             onSelectEvent={handleEventClick}
-            min={dayStart}
-            max={dayEnd}
+            min={moment().startOf('day').toDate()}
+            startDate={startDate}
+            endDate={endDate}
+
           />
         </div>
 
@@ -93,7 +117,7 @@ function PetSitterCalendar() {
             <button className="cancel-button" onClick={handleCancel}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <SitterDetailsForm petsData={petsData} owner_id={owner_id} reset={reset} setReset={setReset} sitter={selectedEvent} min={dayStart} max={dayEnd} />
+            <SitterDetailsForm petsData={petsData} owner_id={owner_id} reset={reset} setReset={setReset} sitter={selectedEvent} startDate={startDate} endDate={endDate} />
           </div>
         )}
       </div>

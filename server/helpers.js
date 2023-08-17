@@ -352,7 +352,7 @@ WHERE
 
 
 const createBooking = async (booking) => {
-  //console.log('@ helper', booking.min);
+  console.log('@ helper', booking);
 
   const query = 
     `INSERT INTO bookings (start_date, end_date, status, pet_id, owner_id, sitter_id)  
@@ -361,8 +361,8 @@ const createBooking = async (booking) => {
   `;
 
   const values = [
-    booking.min,
-    booking.max, 
+    booking.startDate,
+    booking.endDate, 
     booking.status,
     booking.pet_id,
     booking.owner_id,

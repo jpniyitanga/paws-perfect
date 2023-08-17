@@ -14,15 +14,15 @@ function SitterDetailsForm(props) {
 
   const handleBookRequest = async () => {
     console.log("under handleBookRequest ", props);
-    const { sitter, min, max, owner_id, petsData } = props;
+    const { sitter, startDate, endDate, owner_id, petsData } = props;
 
     const newBooking = {
       pet_id: selectedPet,
       owner_id: owner_id,
       sitter: sitter,
       status: "pending",
-      min: min,
-      max: max
+      startDate: startDate,
+      endDate: endDate
     };
 
     try {

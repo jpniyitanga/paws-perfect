@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Footer from './Footer';
 import Messages from './Messages';
+import moment from 'moment';
 
 function Sitters() {
   const user = localStorage.getItem("user");
@@ -191,14 +192,15 @@ function Sitters() {
                   </Button>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <p>Description: {request.pet_description}</p>
+                  <p>Pet Description: {request.pet_description}</p>
                   <p>
                     Start Date:{" "}
-                    {new Date(request.booking_start_date).toLocaleDateString()}
+                    {moment(request.booking_start_date).set({ hour: 8, minute: 0 }).format('YYYY-MM-DD HH:mm')}
                   </p>
+
                   <p>
                     End Date:{" "}
-                    {new Date(request.booking_end_date).toLocaleDateString()}
+                    {moment(request.booking_end_date).set({ hour: 23, minute: 0 }).format('YYYY-MM-DD HH:mm')}
                   </p>
                   <div className="action-buttons">
                     <button
@@ -243,7 +245,7 @@ function Sitters() {
           {availabilities.map((date, index) => (
             <div key={index} className="availability-item border p-3 mb-3">
               {editingAvailability &&
-              editingAvailability.getTime() === date.getTime() ? (
+                editingAvailability.getTime() === date.getTime() ? (
                 <>
                   <div className="mb-2">
                     <DatePicker
@@ -295,6 +297,7 @@ function Sitters() {
                 selected={selectedDateTime}
                 onChange={setSelectedDateTime}
                 dateFormat="yyyy-MM-dd"
+                minDate={new Date()}
                 className="form-control"
               />
             </div>

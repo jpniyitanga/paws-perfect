@@ -17,7 +17,7 @@ function Register() {
       <Navbar />
       <div className="Form">
         <div className="Form-header">
-          <h1>Register a new petsitter account</h1>
+          <h1>Register as a Pet Sitter </h1>
         </div>
         <center>
           <Formik
@@ -76,7 +76,7 @@ function Register() {
                     <Col>
                       <div>
                         <h5>What type of pet?</h5>
-                        <p>Accepted pet type: Cat and Dog</p>
+                        <p>Accepted pet types: Cat | Dog</p>
 
                         <FieldArray
                           type="text"
