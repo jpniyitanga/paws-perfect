@@ -16,7 +16,7 @@ function Register() {
 
       <div className="Form">
         <div className="Form-header">
-          <h1>Register a new pet owner account</h1>
+          <h1>Register as a pet owner </h1>
         </div>
         <center>
           <Formik
