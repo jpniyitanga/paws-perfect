@@ -3,6 +3,7 @@ const axios = require("axios");
 const morgan = require("morgan");
 const cors = require("cors");
 const session = require("express-session");
+const { logEvents, logger } = require("./middleware/logEvents");
 const app = express();
 
 const allowlist = ["http://localhost:3000"];
@@ -22,6 +23,9 @@ app.use(cors(corsOptionsDelegate));
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+
+//Custom middleware to log HTTP requests
+app.use(logger);
 
 // Import Routes module
 const sittersRoutes = require('./routes/sitters');
